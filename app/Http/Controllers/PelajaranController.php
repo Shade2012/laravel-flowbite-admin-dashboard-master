@@ -11,7 +11,10 @@ class PelajaranController extends Controller
     public function index()
     {
         $pelajaran = Pelajaran::all();
-        return view('admin.pelajaran.index', compact('pelajaran'));
+        return view('admin.pelajaran.index', [
+            'title' => 'All Pelajaran',
+            'pelajaran' => $pelajaran
+        ]);
     }
 
     public function create()
