@@ -46,8 +46,9 @@ class NotificationController extends Controller
         }
 
         $notifications = NotificationModel::where('user_id', $user->id)->with([
-            'siswa.user',
-            'siswa.kelas'
+            'user.kelas',
+            'user.guru',
+            'user.siswa'
         ])->get();
 
         return response()->json([

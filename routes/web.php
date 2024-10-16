@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PelajaranController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\PagesController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
@@ -27,17 +29,17 @@ Route::post('/sign-in-add', [AdminAuthController::class, 'loginStore'])->name('s
 // Authentication
 Route::group(["prefix" => "authentication"], function () {
     Route::get('/sign-up', [AdminAuthController::class, 'register'])->name('sign-up');
-    Route::post('/sign-up-add', [AdminAuthController::class,'registerStore'])->name('sign-up-add');
+    Route::post('/sign-up-add', [AdminAuthController::class, 'registerStore'])->name('sign-up-add');
 
     Route::get('/forgot-password', [AdminAuthController::class, 'forgotPassword'])->name('forgot-password');
-    Route::post('/forgot-password-add', [AdminAuthController::class,'forgotPasswordStore'])->name('forgot-password-add');
+    Route::post('/forgot-password-add', [AdminAuthController::class, 'forgotPasswordStore'])->name('forgot-password-add');
 
     Route::get('/verify-code', [AdminAuthController::class, 'verifyCode'])->name('verify-code');
-    Route::post('/verify-code-add', [AdminAuthController::class,'verifyCodeStore'])->name('verify-code-add');
+    Route::post('/verify-code-add', [AdminAuthController::class, 'verifyCodeStore'])->name('verify-code-add');
     Route::post('/resend-otp', [AdminAuthController::class, 'resendOtp'])->name('resend-otp');
 
     Route::get('/reset-password', [AdminAuthController::class, 'resetPassword'])->name('reset-password');
-    Route::post('/reset-password-add', [AdminAuthController::class,'resetPasswordStore'])->name('reset-password-add');
+    Route::post('/reset-password-add', [AdminAuthController::class, 'resetPasswordStore'])->name('reset-password-add');
 
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 });
@@ -45,24 +47,20 @@ Route::group(["prefix" => "authentication"], function () {
 // Admin Dashboard
 Route::prefix('admin')->middleware('auth')->group(function () {
     // Dashboard
-    Route::get('/dashboard', function () {
-        return view('admin.index', ['title' => 'Dashboard']);
-    })->name('index');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('index');
 
     // Profile
-    Route::get('/profile', function () {
-        return view('admin.profile', ['title' => 'Profile']);
-    })->name('profile');
+    Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
 
     // Manajemen User
     Route::group(["prefix" => "/user"], function () {
         Route::get('all', [UserController::class, 'index'])->name('admin.user.index');
-        Route::get('/detail/{user}', [UserController::class, 'show'])->name('admin.user.detail');
+        Route::get('/detail/{id}', [UserController::class, 'show'])->name('admin.user.detail');
         Route::get('create', [UserController::class, 'create'])->name('admin.user.create');
         Route::post('add', [UserController::class, 'store'])->name('admin.user.store');
-        Route::get('edit/{user}', [UserController::class, 'edit'])->name('admin.user.edit');
-        Route::put('update/{user}', [UserController::class, 'update'])->name('admin.user.update');
-        Route::delete('delete/{user}', [UserController::class, 'destroy'])->name('admin.user.destroy');
+        Route::get('edit/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
+        Route::put('update/{id}', [UserController::class, 'update'])->name('admin.user.update');
+        Route::delete('delete/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
     });
 
     // Manajemen Kelas
@@ -134,23 +132,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 });
 
 // Pages
-Route::get('pages/maintenance/', function () {
-    return view('errors.maintenance', ['title' => 'Maintenance Mode']);
-})->name('pages.maintenance');
+Route::get('pages/maintenance/', [PagesController::class, 'maintenance'])->name('pages.maintenance');
 
-Route::get('pages/404/', function () {
-    return view('errors.404', ['title' => '404 - Page Not Found']);
-})->name('pages.404');
+Route::get('pages/404/', [PagesController::class, 'pageNotFound'])->name('pages.404');
 
-Route::get('pages/500/', function () {
-    return view('errors.500', ['title' => '500 - Server Error']);
-})->name('pages.500');
-
-// Playground
-Route::get('playground/stacked', function () {
-    return view('example.content.playground.stacked', ['title' => 'Playground - Stacked Layout']);
-})->name('playground.stacked');
-
-Route::get('playground/sidebar', function () {
-    return view('example.content.playground.sidebar', ['title' => 'Playground - Sidebar Layout']);
-})->name('playground.sidebar');
+Route::get('pages/500/', [PagesController::class, 'serverError'])->name('pages.500');

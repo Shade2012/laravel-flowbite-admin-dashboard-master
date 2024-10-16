@@ -1,4 +1,4 @@
-@extends('example.layouts.default.dashboard')
+@extends('layouts.default.dashboard')
 @section('content')
 @php
 $json = Illuminate\Support\Facades\File::get(public_path('data/users.json'));
