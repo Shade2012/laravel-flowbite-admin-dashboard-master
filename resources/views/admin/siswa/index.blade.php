@@ -1,7 +1,7 @@
 @extends('layouts.default.dashboard')
 @section('content')
     <?php
-    $id = 1 + ($users->currentPage() - 1) * 10;
+    $id = 1 + ($students->currentPage() - 1) * 10;
     ?>
     <div
         class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
@@ -29,8 +29,8 @@
                                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                                <a href="{{ url('admin/user/all') }}"
-                                    class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">User</a>
+                                <a href="{{ url('admin/siswa/all') }}"
+                                    class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">Siswa</a>
                             </div>
                         </li>
                         <li>
@@ -46,21 +46,21 @@
                         </li>
                     </ol>
                 </nav>
-                <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Semua User</h1>
+                <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Semua Siswa</h1>
             </div>
             <div class="sm:flex">
                 <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
-                    <form class="lg:pr-3" action="{{ route('admin.user.index') }}" method="GET">
-                        <label for="users-search" class="sr-only">Search</label>
+                    <form class="lg:pr-3" action="{{ route('admin.siswa.index') }}" method="GET">
+                        <label for="students-search" class="sr-only">Search</label>
                         <div class="relative mt-1 lg:w-64 xl:w-96">
-                            <input type="text" name="name" id="users-search"
+                            <input type="text" name="name" id="students-search"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Cari nama user" value="{{ request('name') }}">
+                                placeholder="Cari nama siswa" value="{{ request('name') }}">
                         </div>
                     </form>
                 </div>
                 <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
-                    <button type="button" data-modal-target="add-user-modal" data-modal-toggle="add-user-modal"
+                    <button type="button" data-modal-target="add-siswa-modal" data-modal-toggle="add-siswa-modal"
                         class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -68,7 +68,7 @@
                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        Tambah User
+                        Tambah Siswa
                     </button>
                 </div>
             </div>
@@ -124,7 +124,11 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                    Peran
+                                    Kelas
+                                </th>
+                                <th scope="col"
+                                    class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                    Wali Kelas
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
@@ -133,25 +137,27 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                            @foreach ($users as $user)
-                                <!-- Use $users instead of $data -->
+                            @foreach ($students as $student)
+                                <!-- Use $Students instead of $data -->
                                 <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $id++ }}</td>
                                     <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
                                         <img class="w-10 h-10 rounded-full"
-                                            src="{{ asset('storage/' . ($user->image ?? 'images/profile.jpg')) }}"
+                                            src="{{ asset('storage/' . ($student->user->image ?? 'images/profile.jpg')) }}"
                                             alt="User Image">
                                     </td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $user->name }}</td>
+                                        {{ $student->user->name }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $user->email }}</td>
+                                        {{ $student->user->email }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $user->role }}</td>
+                                        {{ $student->kelas->nama_kelas }}</td>
+                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $student->kelas->waliKelas->name }}</td>
                                     <td class="p-4 space-x-2 whitespace-nowrap">
-                                        <button type="button" data-modal-target="detail-user-modal{{ $user->id }}"
-                                            data-modal-toggle="detail-user-modal{{ $user->id }}"
+                                        <button type="button" data-modal-target="detail-siswa-modal{{ $student->id }}"
+                                            data-modal-toggle="detail-siswa-modal{{ $student->id }}"
                                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                             <svg class="w-4 h-4 mr-2 currentColor" fill="none" viewBox="0 0 22 22"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -161,10 +167,10 @@
                                                 <path stroke="currentColor" stroke-width="2"
                                                     d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" clip-rule="evenodd"></path>
                                             </svg>
-                                            Detail User
+                                            Detail Siswa
                                         </button>
-                                        <button type="button" data-modal-target="edit-user-modal{{ $user->id }}"
-                                            data-modal-toggle="edit-user-modal{{ $user->id }}"
+                                        <button type="button" data-modal-target="edit-siswa-modal{{ $student->id }}"
+                                            data-modal-toggle="edit-siswa-modal{{ $student->id }}"
                                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-200 dark:bg-yellow-300 dark:hover:bg-yellow-400 dark:focus:ring-yellow-500">
                                             <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -175,10 +181,10 @@
                                                     d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                                                     clip-rule="evenodd"></path>
                                             </svg>
-                                            Edit User
+                                            Edit Siswa
                                         </button>
-                                        <button type="button" data-modal-target="delete-user-modal{{ $user->id }}"
-                                            data-modal-toggle="delete-user-modal{{ $user->id }}"
+                                        <button type="button" data-modal-target="delete-siswa-modal{{ $student->id }}"
+                                            data-modal-toggle="delete-siswa-modal{{ $student->id }}"
                                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
                                             <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -186,7 +192,7 @@
                                                     d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                                                     clip-rule="evenodd"></path>
                                             </svg>
-                                            Delete User
+                                            Delete Siswa
                                         </button>
                                     </td>
                                 </tr>
@@ -199,19 +205,19 @@
     </div>
     <div class="bg-white border-t p-6 border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="flex justify-center">
-            {{ $users->links() }}
+            {{ $students->links() }}
         </div>
     </div>
 
-    <!-- Add User Modal -->
-    @include('admin.user.create')
+    <!-- Add Siswa Modal -->
+    @include('admin.siswa.create')
 
-    <!-- Detail User Modal -->
-    @include('admin.user.detail')
+    <!-- Detail Siswa Modal -->
+    @include('admin.siswa.detail')
 
-    <!-- Edit User Modal -->
-    @include('admin.user.edit')
+    <!-- Edit Siswa Modal -->
+    @include('admin.siswa.edit')
 
-    <!-- Delete User Modal -->
-    @include('admin.user.delete')
+    <!-- Delete Siswa Modal -->
+    @include('admin.siswa.delete')
 @endsection

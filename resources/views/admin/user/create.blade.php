@@ -7,7 +7,7 @@
             <!-- Modal header -->
             <div class="flex items-start justify-between p-5 border-b rounded-t dark:border-gray-700">
                 <h3 class="text-xl font-semibold dark:text-white">
-                    Add New Student
+                    Tambah User
                 </h3>
                 <button type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white"
@@ -26,26 +26,26 @@
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-3">
                             <label for="image"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar</label>
                             <div class="flex items-start space-x-4">
                                 <div class="mb-4">
                                     <img id="image-preview" src="{{ asset('storage/images/profile.jpg') }}"
                                         alt="User Image" class="w-32 h-32 rounded-full object-cover">
                                 </div>
                                 <button type="button" onclick="document.getElementById('image').click()"
-                                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Upload
-                                    Image</button>
+                                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Unggah
+                                    Gambar</button>
                                 <input type="file" id="image" name="image" class="hidden"
                                     onchange="previewImage()" required>
                             </div>
                             <div>
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Upload a profile image (JPG,
-                                    PNG, or GIF). Max size 2 MB.</p>
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Unggah gambar profil (JPG,
+                                    PNG, atau GIF). Maks ukuran 2 MB.</p>
                             </div>
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="name"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
                             <input type="text" name="name" id="name"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Your Name" required>
@@ -79,7 +79,7 @@
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="role"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Peran</label>
                             <select name="role" id="role"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 required>
@@ -94,7 +94,7 @@
             <div class="items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700">
                 <button
                     class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                    type="submit">Add Student</button>
+                    type="submit">Tambah User</button>
             </div>
             </form>
         </div>

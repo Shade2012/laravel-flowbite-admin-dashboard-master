@@ -54,7 +54,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('failed', 'The password field must be at least 8 characters.');
+            return redirect()->back()->with('failed', $validator->errors()->first());
         } else {
             $image = null;
             if ($request->hasFile('image')) {
@@ -70,9 +70,9 @@ class UserController extends Controller
             ]);
 
             if ($user) {
-                return redirect()->route('admin.user.index')->with('success', 'User successfully added.');
+                return redirect()->route('admin.user.index')->with('success', 'Siswa berhasil ditambahkan.');
             } else {
-                return redirect()->back()->with('failed', 'User failed to be added, please try again.');
+                return redirect()->back()->with('failed', 'Siswa gagal ditambahkan, silakan coba lagi.');
             }
         }
     }
@@ -87,14 +87,14 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'name' => 'nullable|string',
+            'email' => 'nullable|email|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8',
-            'role' => 'required|string'
+            'role' => 'nullable|string'
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('failed', 'The password field must be at least 8 characters.');
+            return redirect()->back()->with('failed', $validator->errors()->first());
         } else {
             $user = User::find($id);
             if ($user) {
@@ -117,9 +117,9 @@ class UserController extends Controller
 
                 $user->save();
 
-                return redirect()->route('admin.user.index')->with('success', 'User successfully updated.');
+                return redirect()->route('admin.user.index')->with('success', 'Siswa berhasil diperbarui.');
             } else {
-                return redirect()->back()->with('failed', 'User update failed, please try again.');
+                return redirect()->back()->with('failed', 'Siswa gagal diperbarui, silakan coba lagi.');
             }
         }
     }
@@ -136,9 +136,9 @@ class UserController extends Controller
         $user = User::find($id)->delete();
 
         if ($user) {
-            return redirect()->route('admin.user.index')->with('success', 'User successfully deleted.');
+            return redirect()->route('admin.user.index')->with('success', 'Siswa berhasil dihapus.');
         } else {
-            return redirect()->back()->with('failed', 'User deletion failed, please try again.');
+            return redirect()->back()->with('failed', 'Siswa gagal dihapus, silakan coba lagi.');
         }
     }
 }

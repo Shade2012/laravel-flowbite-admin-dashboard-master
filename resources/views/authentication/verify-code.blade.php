@@ -38,7 +38,7 @@
 
                 <div class="w-auto p-6 space-y-8 bg-white rounded-lg shadow sm:p-8 dark:bg-gray-800">
                     <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-                        Verify Your OTP
+                        Verifikasi OTP Anda
                     </h2>
                     <form class="mt-8 space-y-6" action="{{ route('verify-code-add') }}" method="POST" id="otp-form">
                         @csrf
@@ -51,16 +51,15 @@
                             @endfor
                         </div>
                         <button type="submit"
-                            class="w-full px-5 py-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Verify
+                            class="w-full px-5 py-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Verifikasi
                             OTP</button>
                     </form>
 
                     <div class="flex justify-between items-center">
-                        <span class="text-sm text-gray-500 dark:text-gray-400">Didn’t receive the code?
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Tidak menerima kode?
                             <form action="{{ route('resend-otp') }}" method="POST" style="display: inline;">
                                 @csrf
-                                <button type="submit" class="text-blue-600 hover:underline focus:outline-none">Resend OTP
-                                    Code</button>
+                                <button type="submit" class="text-blue-600 hover:underline focus:outline-none">Kirim Ulang Kode OTP</button>
                             </form>
                         </span>
                     </div>
