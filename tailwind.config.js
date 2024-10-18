@@ -22,6 +22,9 @@ module.exports = {
             950: '#172554',
           }
       },
+      boxShadow: {
+        'top-only': '0 0px 6px 3px rgba(0, 0, 0, 0.1)', // Customize the shadow as needed
+      },
       },
     },
     plugins: [

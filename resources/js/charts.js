@@ -148,24 +148,22 @@ if (document.getElementById('main-chart')) {
 	});
 }
 
-if (document.getElementById('new-products-chart')) {
+if (document.getElementById('pelajaran-chart')) {
+	const pelajaranData = jadwalPelajaranDataCount.map(item => {
+        return {
+            x: item.pelajaran,
+            y: item.countPelajaran // Assuming random data for the 'y' axis for now
+        };
+    });
 	const options = {
 		colors: ['#1A56DB', '#FDBA8C'],
 		series: [
-			{
-				name: 'Quantity',
-				color: '#1A56DB',
-				data: [
-					{ x: '01 Feb', y: 170 },
-					{ x: '02 Feb', y: 180 },
-					{ x: '03 Feb', y: 164 },
-					{ x: '04 Feb', y: 145 },
-					{ x: '05 Feb', y: 194 },
-					{ x: '06 Feb', y: 170 },
-					{ x: '07 Feb', y: 155 },
-				]
-			}
-		],
+            {
+                name: 'Diajari',
+                color: '#1A56DB',
+                data: pelajaranData
+            }
+        ],
 		chart: {
 			type: 'bar',
 			height: '140px',
@@ -231,9 +229,95 @@ if (document.getElementById('new-products-chart')) {
 		}
 	};
 
-	const chart = new ApexCharts(document.getElementById('new-products-chart'), options);
+	const chart = new ApexCharts(document.getElementById('pelajaran-chart'), options);
 	chart.render();
 }
+
+if (document.getElementById('guru-chart')) {
+	const guruData = jadwalGuruDataCount.map(item => {
+        return {
+            x: item.guru,
+            y: item.countGuru // Assuming random data for the 'y' axis for now
+        };
+    });
+	const options = {
+		colors: ['#1A56DB', '#FDBA8C'],
+		series: [
+            {
+                name: 'Mengajar',
+                color: '#1A56DB',
+                data: guruData
+            }
+        ],
+		chart: {
+			type: 'bar',
+			height: '140px',
+			fontFamily: 'Inter, sans-serif',
+			foreColor: '#4B5563',
+			toolbar: {
+				show: false
+			}
+		},
+		plotOptions: {
+			bar: {
+				columnWidth: '90%',
+				borderRadius: 3
+			}
+		},
+		tooltip: {
+			shared : false,
+			intersect: false,
+			style: {
+				fontSize: '14px',
+				fontFamily: 'Inter, sans-serif'
+			},
+		},
+		states: {
+			hover: {
+				filter: {
+					type: 'darken',
+					value: 1
+				}
+			}
+		},
+		stroke: {
+			show: true,
+			width: 5,
+			colors: ['transparent']
+		},
+		grid: {
+			show: false
+		},
+		dataLabels: {
+			enabled: false
+		},
+		legend: {
+			show: false
+		},
+		xaxis: {
+			floating: false,
+			labels: {
+				show: false
+			},
+			axisBorder: {
+				show: false
+			},
+			axisTicks: {
+				show: false
+			},
+		},
+		yaxis: {
+			show: false
+		},
+		fill: {
+			opacity: 1
+		}
+	};
+
+	const chart = new ApexCharts(document.getElementById('guru-chart'), options);
+	chart.render();
+}
+
 
 if (document.getElementById('sales-by-category')) {
 	const options = {
