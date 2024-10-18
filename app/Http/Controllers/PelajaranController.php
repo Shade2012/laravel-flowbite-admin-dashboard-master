@@ -2,16 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Pelajaran;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class PelajaranController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pelajaran = Pelajaran::all();
-        return view('admin.pelajaran.index', compact('pelajaran'));
+        $searchTerm = $request->input('name');
+
+        if ($searchTerm) {
+            $pelajaran = Pelajaran::with('guru.user')
+                ->where('nama_pelajaran', 'LIKE', '%' . $searchTerm . '%')
+                ->paginate(10);
+        } else {
+            $pelajaran = Pelajaran::with('guru.user', 'guru.pelajaran')
+                ->paginate(10);
+        }
+
+        $users = User::with('Kelas.waliKelas', 'guru.user', 'guru.pelajaran', 'siswa.user', 'siswa.kelas')->get();
+
+        return view('admin.pelajaran.index', [
+            'title' => 'All Pelajaran',
+            'pelajaran' => $pelajaran,
+            'users' => $users,
+        ]);
     }
 
     public function create()

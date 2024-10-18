@@ -73,6 +73,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('add', [KelasController::class, 'store'])->name('admin.kelas.store');
         Route::get('edit/{kelas}', [KelasController::class, 'edit'])->name('admin.kelas.edit');
         Route::put('update/{kelas}', [KelasController::class, 'update'])->name('admin.kelas.update');
+        Route::delete('delete/{kelas}', [KelasController::class, 'delete'])->name('admin.kelas.delete');
         Route::delete('delete/{kelas}', [KelasController::class, 'destroy'])->name('admin.kelas.destroy');
     });
 
