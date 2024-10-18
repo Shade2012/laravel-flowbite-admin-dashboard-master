@@ -60,7 +60,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('add', [UserController::class, 'store'])->name('admin.user.store');
         Route::get('edit/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
         Route::put('update/{id}', [UserController::class, 'update'])->name('admin.user.update');
-        Route::delete('delete/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
+        Route::delete('delete/{id}', [UserController::class, 'delete'])->name('admin.user.delete');
+        Route::delete('destroy/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
     });
 
     // Manajemen Kelas

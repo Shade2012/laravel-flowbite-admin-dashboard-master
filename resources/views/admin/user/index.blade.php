@@ -141,7 +141,7 @@
                                     <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
                                         <img class="w-10 h-10 rounded-full"
                                             src="{{ asset('storage/' . ($user->image ?? 'images/profile.jpg')) }}"
-                                            alt="user Image">
+                                            alt="User Image">
                                     </td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $user->name }}</td>
@@ -150,13 +150,8 @@
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $user->role }}</td>
                                     <td class="p-4 space-x-2 whitespace-nowrap">
-                                        <button type="button" data-id="{{ $user->id }}"
-                                            data-name="{{ $user->name }}"
-                                            data-email="{{ $user->email }}"
-                                            data-role="{{ $user->role }}"
-                                            data-image="{{ asset('static/images/users/' . $user->image) }}" 
-                                            data-modal-target="detail-user-modal{{ $user->id }}" 
-                                            data-modal-toggle="detail-user-modal"
+                                        <button type="button" data-modal-target="detail-user-modal{{ $user->id }}"
+                                            data-modal-toggle="detail-user-modal{{ $user->id }}"
                                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                             <svg class="w-4 h-4 mr-2 currentColor" fill="none" viewBox="0 0 22 22"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -168,8 +163,8 @@
                                             </svg>
                                             Detail User
                                         </button>
-                                        <button type="button" data-id="{{ $user->id }}"
-                                            data-modal-target="edit-user-modal{{ $user->id }}" data-modal-toggle="edit-user-modal"
+                                        <button type="button" data-modal-target="edit-user-modal{{ $user->id }}"
+                                            data-modal-toggle="edit-user-modal{{ $user->id }}"
                                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-200 dark:bg-yellow-300 dark:hover:bg-yellow-400 dark:focus:ring-yellow-500">
                                             <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -183,7 +178,7 @@
                                             Edit User
                                         </button>
                                         <button type="button" data-modal-target="delete-user-modal{{ $user->id }}"
-                                            data-modal-toggle="delete-user-modal"
+                                            data-modal-toggle="delete-user-modal{{ $user->id }}"
                                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
                                             <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -219,71 +214,5 @@
     @include('admin.user.edit')
 
     <!-- Delete User Modal -->
-    <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full"
-        id="delete-user-modal">
-        <div class="relative w-full h-full max-w-md px-4 md:h-auto">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
-                <!-- Modal header -->
-                <div class="flex justify-end p-2">
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white"
-                        data-modal-hide="delete-user-modal">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="p-6 pt-0 text-center">
-                    <svg class="w-16 h-16 mx-auto text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <h3 class="mt-5 mb-6 text-lg text-gray-500 dark:text-gray-400">Are you sure you want to delete this
-                        user?</h3>
-                    <a href="#"
-                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2 dark:focus:ring-red-800">
-                        Yes, I'm sure
-                    </a>
-                    <a href="#"
-                        class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
-                        data-modal-hide="delete-user-modal">
-                        No, cancel
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        button.addEventListener('click', async () => {
-            const userId = button.getAttribute('data-id');
-            console.log(`Fetching data for user ID: ${userId}`);
-
-            const response = await fetch(`/user/detail/${userId}`);
-
-            if (response.ok) {
-                const user = await response.json();
-                console.log(user);
-
-                document.getElementById('image-preview').src = user.image ||
-                    '{{ asset('static/images/users/default.png') }}';
-                document.getElementById('name').value = user.name || '';
-                document.getElementById('email').value = user.email || '';
-                document.getElementById('kelas').value = user.kelas || '';
-                document.getElementById('role').value = user.role || '';
-                document.getElementById('password').value = '••••••••';
-
-                const modal = document.getElementById('detail-siswa-modal');
-                modal.classList.remove('hidden');
-            } else {
-                console.error('User not found');
-                alert('User not found');
-            }
-        });
-    </script>
+    @include('admin.user.delete')
 @endsection

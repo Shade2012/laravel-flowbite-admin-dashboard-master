@@ -25,25 +25,14 @@ class UserController extends Controller
 
         return view('admin.user.index', [
             'title' => 'All Users',
-            'users' => $users
+            'users' => $users,
         ]);
     }
 
-    public function show($id)
+    public function show()
     {
-        $user = User::with('kelas.waliKelas', 'guru.user', 'guru.pelajaran', 'siswa.user', 'siswa.kelas')->find($id)->get();
-
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
-        }
-
-        return response()->json([
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'kelas' => $user->kelas,
-            'role' => $user->role,
-            'image' => $user->image,
+        return view('admin.user.detail', [
+            "title" => "Detail User",
         ]);
     }
 
@@ -65,10 +54,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => 422,
-                'errors' => $validator->messages(),
-            ], 422);
+            return redirect()->back()->with('failed', 'The password field must be at least 8 characters.');
         } else {
             $image = null;
             if ($request->hasFile('image')) {
@@ -86,40 +72,63 @@ class UserController extends Controller
             if ($user) {
                 return redirect()->route('admin.user.index')->with('success', 'User successfully added.');
             } else {
-                return redirect()->back()->with('success', 'User successfully added.');
+                return redirect()->back()->with('failed', 'User failed to be added, please try again.');
             }
         }
     }
 
-    public function edit($user)
+    public function edit()
     {
-        $user = User::with('kelas.waliKelas', 'guru.user', 'guru.pelajaran', 'siswa.user', 'siswa.kelas')->find($user)->get();
-
-        return view('admin.user.create', [
+        return view('admin.user.edit', [
             "title" => "Edit User",
-            "user" => $user
         ]);
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8',
             'role' => 'required|string'
         ]);
 
-        $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        if ($request->filled('password')) {
-            $user->password = bcrypt($request->password);
-        }
-        $user->role = $request->role;
-        $user->save();
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', 'The password field must be at least 8 characters.');
+        } else {
+            $user = User::find($id);
+            if ($user) {
+                if ($request->hasFile('image')) {
+                    if ($user->image) {
+                        Storage::disk('public')->delete($user->image);
+                    }
+                    $user->image = $request->file('image')->store('images', 'public');
+                }
 
-        return redirect()->route('admin.user.index')->with('success', 'User successfully updated.');
+                if ($request->filled('password')) {
+                    $user->password = Hash::make($request->password);
+                }
+
+                $user->fill($request->only([
+                    'name',
+                    'email',
+                    'role',
+                ]));
+
+                $user->save();
+
+                return redirect()->route('admin.user.index')->with('success', 'User successfully updated.');
+            } else {
+                return redirect()->back()->with('failed', 'User update failed, please try again.');
+            }
+        }
+    }
+
+    public function delete()
+    {
+        return view('admin.user.delete', [
+            "title" => "Delete User",
+        ]);
     }
 
     public function destroy($id)
@@ -128,6 +137,8 @@ class UserController extends Controller
 
         if ($user) {
             return redirect()->route('admin.user.index')->with('success', 'User successfully deleted.');
+        } else {
+            return redirect()->back()->with('failed', 'User deletion failed, please try again.');
         }
     }
 }
