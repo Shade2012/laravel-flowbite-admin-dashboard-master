@@ -112,12 +112,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // Manajemen Siswa
     Route::group(["prefix" => "/siswa"], function () {
         Route::get('all', [SiswaController::class, 'index'])->name('admin.siswa.index');
-        Route::get('/detail/{siswa}', [SiswaController::class, 'show'])->name('admin.siswa.detail');
+        Route::get('/detail/{id}', [SiswaController::class, 'show'])->name('admin.siswa.detail');
         Route::get('create', [SiswaController::class, 'create'])->name('admin.siswa.create');
         Route::post('add', [SiswaController::class, 'store'])->name('admin.siswa.store');
-        Route::get('edit/{siswa}', [SiswaController::class, 'edit'])->name('admin.siswa.edit');
-        Route::put('update/{siswa}', [SiswaController::class, 'update'])->name('admin.siswa.update');
-        Route::delete('delete/{siswa}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
+        Route::get('edit/{id}', [SiswaController::class, 'edit'])->name('admin.siswa.edit');
+        Route::put('update/{id}', [SiswaController::class, 'update'])->name('admin.siswa.update');
+        Route::delete('delete/{id}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
+        Route::delete('destroy/{id}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
     });
 
     // Manajemen Jadwal Pelajaran

@@ -40,16 +40,17 @@
                 <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800">
                     <div class="w-full p-6 sm:p-8">
                         <h2 class="mb-3 text-2xl font-bold text-gray-900 dark:text-white">
-                            Forgot your password?
+                            Lupa password Anda?
                         </h2>
                         <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-                            Don't fret! Just type in your email and we will send you a code to reset your password!
+                            Jangan khawatir! Masukkan email Anda dan kami akan mengirimkan kode untuk mereset kata sandi
+                            Anda!
                         </p>
                         <form class="mt-8 space-y-6" action="{{ route('forgot-password-add') }}" method="POST">
                             @csrf
                             <div>
                                 <label for="email"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Anda</label>
                                 <input type="email" name="email" id="email"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="name@gmail.com" required>
