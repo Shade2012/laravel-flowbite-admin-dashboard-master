@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PelajaranController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\JadwalPelajaranController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
-use App\Models\JadwalPelajaran;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +51,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // Profile
     Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
+    Route::put('/update', [AdminController::class, 'update'])->name('update');
+    Route::put('/photoProfile', [AdminController::class, 'updateImage'])->name('photoProfile');
+    Route::put('/change-password', [AdminController::class, 'changePassword'])->name('change-password');
 
     // Manajemen User
     Route::group(["prefix" => "/user"], function () {
@@ -127,14 +130,14 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // Manajemen Jadwal Pelajaran
     Route::group(["prefix" => "/jadwal-pelajaran"], function () {
-        Route::get('all', [JadwalPelajaran::class, 'index'])->name('admin.jadwal_pelajaran.index');
-        Route::get('/detail/{id}', [JadwalPelajaran::class, 'show'])->name('admin.jadwal_pelajaran.detail');
-        Route::get('create', [JadwalPelajaran::class, 'create'])->name('admin.jadwal_pelajaran.create');
-        Route::post('add', [JadwalPelajaran::class, 'store'])->name('admin.jadwal_pelajaran.store');
-        Route::get('edit/{id}', [JadwalPelajaran::class, 'edit'])->name('admin.jadwal_pelajaran.edit');
-        Route::put('update/{id}', [JadwalPelajaran::class, 'update'])->name('admin.jadwal_pelajaran.update');
-        Route::delete('delete/{id}', [JadwalPelajaran::class, 'delete'])->name('admin.jadwal_pelajaran.delete');
-        Route::delete('destroy/{id}', [JadwalPelajaran::class, 'destroy'])->name('admin.jadwal_pelajaran.destroy');
+        Route::get('all', [JadwalPelajaranController::class, 'index'])->name('admin.jadwal_pelajaran.index');
+        Route::get('/detail/{id}', [JadwalPelajaranController::class, 'show'])->name('admin.jadwal_pelajaran.detail');
+        Route::get('create', [JadwalPelajaranController::class, 'create'])->name('admin.jadwal_pelajaran.create');
+        Route::post('add', [JadwalPelajaranController::class, 'store'])->name('admin.jadwal_pelajaran.store');
+        Route::get('edit/{id}', [JadwalPelajaranController::class, 'edit'])->name('admin.jadwal_pelajaran.edit');
+        Route::put('update/{id}', [JadwalPelajaranController::class, 'update'])->name('admin.jadwal_pelajaran.update');
+        Route::delete('delete/{id}', [JadwalPelajaranController::class, 'delete'])->name('admin.jadwal_pelajaran.delete');
+        Route::delete('destroy/{id}', [JadwalPelajaranController::class, 'destroy'])->name('admin.jadwal_pelajaran.destroy');
     });
 });
 

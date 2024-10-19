@@ -27,9 +27,8 @@
                             <label for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar</label>
                             <div>
-                                <img id="image-preview"
-                                    src="{{ asset('storage/' . ($user->image ?? 'images/profile.jpg')) }}"
-                                    alt="User Image" class="w-32 h-32 rounded-full object-cover">
+                                <img  class="w-32 h-32 rounded-full object-cover" src="{{ is_string($user->image) && !empty($user->image) ? url($user->image) : asset('images/poto_profil.jpg') }}" alt="User Image">
+                        
                             </div>
                         </div>
                         <div class="col-span-6 sm:col-span-3">

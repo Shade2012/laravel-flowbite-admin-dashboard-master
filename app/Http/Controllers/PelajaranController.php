@@ -29,6 +29,17 @@ class PelajaranController extends Controller
             'title' => 'All Pelajaran',
             'pelajaran' => $pelajaran,
             'users' => $users,
+<<<<<<< HEAD
+<<<<<<< HEAD
+        ]);
+        $pelajaran = Pelajaran::all();
+        return view('admin.pelajaran.index', [
+            'title' => 'All Pelajaran',
+            'pelajaran' => $pelajaran
+=======
+>>>>>>> 76ad2872d242a0a6b9b6fdae8f2ac203c1a8e563
+=======
+>>>>>>> 32b39cbb76d44554fe81e43115fc4e7f2fb57e59
         ]);
     }
 
