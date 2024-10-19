@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-    class JadwalPelajaran extends Model
+class JadwalPelajaran extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['kelas_id', 'hari', 'jam_mulai', 'jam_selesai', 'pelajaran_id', 'guru_id', 'ruang_id'];
+
+    public function kelas(): BelongsTo
     {
-        use HasFactory;
-
-        protected $fillable = ['kelas_id', 'hari', 'jam_mulai', 'jam_selesai', 'pelajaran_id', 'guru_id', 'ruang_id'];
-
-        public function kelas(): BelongsTo
-        {
-            return $this->belongsTo(Kelas::class);
-        }
+        return $this->belongsTo(Kelas::class);
+    }
 
     public function pelajaran(): BelongsTo
     {
