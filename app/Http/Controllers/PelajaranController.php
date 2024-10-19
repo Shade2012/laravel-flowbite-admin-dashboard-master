@@ -15,7 +15,7 @@ class PelajaranController extends Controller
         $searchTerm = $request->input('name');
 
         if ($searchTerm) {
-            $pelajaran = Pelajaran::with('guru.user')
+            $pelajaran = Pelajaran::with('guru.user' , 'guru.pelajaran')
                 ->where('nama_pelajaran', 'LIKE', '%' . $searchTerm . '%')
                 ->paginate(10);
         } else {

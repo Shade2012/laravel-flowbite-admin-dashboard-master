@@ -37,7 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/update', [AuthController::class, 'update']);
     });
 
-    Route::get('/notification', [AuthController::class, 'getUserNotifications']);
+    Route::get('/notification', [NotificationController::class, 'getUserNotifications']);
     
     Route::get('/kelas', [JadwalController::class, 'getKelas']);
     

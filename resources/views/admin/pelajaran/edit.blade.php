@@ -22,7 +22,7 @@
                 </div>
                 <!-- Modal body -->
                 <div class="p-6 space-y-6">
-                    <form action="{{ route('admin.kelas.update', $lesson->id) }}" method="POST"
+                    <form action="{{ route('admin.pelajaran.update', $lesson->id) }}" method="POST"
                           enctype="multipart/form-data">
                         @method('PUT')
                         @csrf

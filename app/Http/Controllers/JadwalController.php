@@ -14,18 +14,19 @@ class JadwalController extends Controller
 {
     public function getKelas()
     {
-        $mataPelajaran = Kelas::all();
+        $kelas = Kelas::all();
 
-        if ($mataPelajaran->count() > 0) {
+        if ($kelas->count() > 0) {
             return response()->json([
                 'status' => 200,
-                'kelas' => $mataPelajaran,
+                'kelas' => $kelas,
             ], 200);
         } else {
             return response()->json([
-                'status' => 404,
-                'message' => 'Guru ini tidak memiliki mata pelajaran yang diampu.',
-            ], 404);
+                'status' => 200,
+                'message' => 'Guru ini tidak memiliki kelas yang diampu.',
+                'kelas' => [],
+            ], 200);
         }
     }
 
@@ -53,9 +54,10 @@ class JadwalController extends Controller
             ], 200);
         } else {
             return response()->json([
-                'status' => 404,
+                'status' => 200,
                 'message' => 'Guru ini tidak memiliki mata pelajaran yang diampu.',
-            ], 404);
+                'mata_pelajaran' => [],
+            ], 200);
         }
     }
 
@@ -125,9 +127,10 @@ class JadwalController extends Controller
             ], 200);
         } else {
             return response()->json([
-                'status' => 404,
+                'status' => 200,
                 'message' => 'Jadwal guru tidak ditemukan.',
-            ], 404);
+                'jadwal' => [],
+            ], 200);
         }
     }
 
@@ -165,9 +168,10 @@ class JadwalController extends Controller
             ], 200);
         } else {
             return response()->json([
-                'status' => 404,
+                'status' => 200,
                 'message' => 'Jadwal kelas hari ini tidak ada.',
-            ], 404);
+                'jadwal' => [],
+            ], 200);
         }
     }
 
@@ -182,9 +186,10 @@ class JadwalController extends Controller
             ], 200);
         } else {
             return response()->json([
-                'status' => 404,
-                'message' => 'Jadwal not found',
-            ], 404);
+                'status' => 200,
+                'message' => 'Jadwal tidak ditemukan.',
+                'jadwal' => [],
+            ], 200);
         }
     }
 }
