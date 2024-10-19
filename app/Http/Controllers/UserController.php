@@ -15,11 +15,11 @@ class UserController extends Controller
         $searchTerm = $request->input('name');
 
         if ($searchTerm) {
-            $users = User::with('kelas.waliKelas', 'guru.user', 'guru.pelajaran', 'siswa.user', 'siswa.kelas')
+            $users = User::with('kelas.waliKelas', 'kelas.siswa', 'kelas.jadwalPelajaran', 'guru.user', 'guru.pelajaran', 'siswa.user', 'siswa.kelas')
                 ->where('name', 'LIKE', '%' . $searchTerm . '%')
                 ->paginate(10);
         } else {
-            $users = User::with('kelas.waliKelas', 'guru.user', 'guru.pelajaran', 'siswa.user', 'siswa.kelas')
+            $users = User::with('kelas.waliKelas', 'kelas.siswa', 'kelas.jadwalPelajaran', 'guru.user', 'guru.pelajaran', 'siswa.user', 'siswa.kelas')
                 ->paginate(10);
         }
 
@@ -54,7 +54,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('failed', $validator->errors()->first());
+            return redirect()->back()->with('Gagal', $validator->errors()->first());
         } else {
             $image = null;
             if ($request->hasFile('image')) {
@@ -70,9 +70,9 @@ class UserController extends Controller
             ]);
 
             if ($user) {
-                return redirect()->route('admin.user.index')->with('success', 'Siswa berhasil ditambahkan.');
+                return redirect()->route('admin.user.index')->with('Berhasil', 'Siswa berhasil ditambahkan.');
             } else {
-                return redirect()->back()->with('failed', 'Siswa gagal ditambahkan, silakan coba lagi.');
+                return redirect()->back()->with('Gagal', 'Siswa gagal ditambahkan, silakan coba lagi.');
             }
         }
     }
@@ -94,7 +94,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('failed', $validator->errors()->first());
+            return redirect()->back()->with('Gagal', $validator->errors()->first());
         } else {
             $user = User::find($id);
             if ($user) {
@@ -117,9 +117,9 @@ class UserController extends Controller
 
                 $user->save();
 
-                return redirect()->route('admin.user.index')->with('success', 'Siswa berhasil diperbarui.');
+                return redirect()->route('admin.user.index')->with('Berhasil', 'Siswa berhasil diperbarui.');
             } else {
-                return redirect()->back()->with('failed', 'Siswa gagal diperbarui, silakan coba lagi.');
+                return redirect()->back()->with('Gagal', 'Siswa gagal diperbarui, silakan coba lagi.');
             }
         }
     }
@@ -136,9 +136,9 @@ class UserController extends Controller
         $user = User::find($id)->delete();
 
         if ($user) {
-            return redirect()->route('admin.user.index')->with('success', 'Siswa berhasil dihapus.');
+            return redirect()->route('admin.user.index')->with('Berhasil', 'Siswa berhasil dihapus.');
         } else {
-            return redirect()->back()->with('failed', 'Siswa gagal dihapus, silakan coba lagi.');
+            return redirect()->back()->with('Gagal', 'Siswa gagal dihapus, silakan coba lagi.');
         }
     }
 }

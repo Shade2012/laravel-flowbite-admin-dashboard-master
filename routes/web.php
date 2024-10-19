@@ -101,12 +101,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // Manajemen Guru
     Route::group(["prefix" => "/guru"], function () {
         Route::get('all', [GuruController::class, 'index'])->name('admin.guru.index');
-        Route::get('/detail/{guru}', [GuruController::class, 'show'])->name('admin.guru.detail');
+        Route::get('/detail/{id}', [GuruController::class, 'show'])->name('admin.guru.detail');
         Route::get('create', [GuruController::class, 'create'])->name('admin.guru.create');
         Route::post('add', [GuruController::class, 'store'])->name('admin.guru.store');
-        Route::get('edit/{guru}', [GuruController::class, 'edit'])->name('admin.guru.edit');
-        Route::put('update/{guru}', [GuruController::class, 'update'])->name('admin.guru.update');
-        Route::delete('delete/{guru}', [GuruController::class, 'destroy'])->name('admin.guru.destroy');
+        Route::get('edit/{id}', [GuruController::class, 'edit'])->name('admin.guru.edit');
+        Route::put('update/{id}', [GuruController::class, 'update'])->name('admin.guru.update');
+        Route::delete('delete/{id}', [GuruController::class, 'delete'])->name('admin.guru.delete');
+        Route::delete('destroy/{id}', [GuruController::class, 'destroy'])->name('admin.guru.destroy');
     });
 
     // Manajemen Siswa
@@ -117,19 +118,20 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('add', [SiswaController::class, 'store'])->name('admin.siswa.store');
         Route::get('edit/{id}', [SiswaController::class, 'edit'])->name('admin.siswa.edit');
         Route::put('update/{id}', [SiswaController::class, 'update'])->name('admin.siswa.update');
-        Route::delete('delete/{id}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
+        Route::delete('delete/{id}', [SiswaController::class, 'delete'])->name('admin.siswa.delete');
         Route::delete('destroy/{id}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
     });
 
     // Manajemen Jadwal Pelajaran
     Route::group(["prefix" => "/jadwal-pelajaran"], function () {
         Route::get('all', [JadwalPelajaran::class, 'index'])->name('admin.jadwal_pelajaran.index');
-        Route::get('/detail/{jadwal-pelajaran}', [JadwalPelajaran::class, 'show'])->name('admin.jadwal_pelajaran.detail');
+        Route::get('/detail/{id}', [JadwalPelajaran::class, 'show'])->name('admin.jadwal_pelajaran.detail');
         Route::get('create', [JadwalPelajaran::class, 'create'])->name('admin.jadwal_pelajaran.create');
         Route::post('add', [JadwalPelajaran::class, 'store'])->name('admin.jadwal_pelajaran.store');
-        Route::get('edit/{jadwal-pelajaran}', [JadwalPelajaran::class, 'edit'])->name('admin.jadwal_pelajaran.edit');
-        Route::put('update/{jadwal-pelajaran}', [JadwalPelajaran::class, 'update'])->name('admin.jadwal_pelajaran.update');
-        Route::delete('delete/{jadwal-pelajaran}', [JadwalPelajaran::class, 'destroy'])->name('admin.jadwal_pelajaran.destroy');
+        Route::get('edit/{id}', [JadwalPelajaran::class, 'edit'])->name('admin.jadwal_pelajaran.edit');
+        Route::put('update/{id}', [JadwalPelajaran::class, 'update'])->name('admin.jadwal_pelajaran.update');
+        Route::delete('delete/{id}', [JadwalPelajaran::class, 'delete'])->name('admin.jadwal_pelajaran.delete');
+        Route::delete('destroy/{id}', [JadwalPelajaran::class, 'destroy'])->name('admin.jadwal_pelajaran.destroy');
     });
 });
 

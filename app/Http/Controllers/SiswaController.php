@@ -6,7 +6,6 @@ use App\Models\Kelas;
 use App\Models\User;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class SiswaController extends Controller
@@ -30,15 +29,15 @@ class SiswaController extends Controller
                 ->paginate(10);
         }
 
-        $users = User::with('kelas.waliKelas', 'guru.user', 'guru.pelajaran', 'siswa.user', 'siswa.kelas')
+        $users = User::with('kelas.waliKelas', 'kelas.siswa', 'kelas.jadwalPelajaran', 'guru.user', 'guru.pelajaran', 'siswa.user', 'siswa.kelas')
             ->where('role', 'siswa')
             ->get();
 
-        $class = Kelas::with('waliKelas', 'siswa.user', 'siswa.kelas', 'jadwalPelajaran')
+        $class = Kelas::with('waliKelas.kelas', 'waliKelas.guru', 'waliKelas.siswa', 'siswa.user', 'siswa.kelas', 'jadwalPelajaran.kelas', 'jadwalPelajaran.pelajaran', 'jadwalPelajaran.guru', 'jadwalPelajaran.ruang')
             ->get();
 
         return view('admin.siswa.index', [
-            'title' => 'All Students',
+            'title' => 'All Siswa',
             'students' => $students,
             'users' => $users,
             'class'=> $class,
@@ -48,14 +47,14 @@ class SiswaController extends Controller
     public function show()
     {
         return view('admin.siswa.detail', [
-            "title" => "Detail Student",
+            "title" => "Detail Siswa",
         ]);
     }
 
     public function create()
     {
         return view('admin.siswa.create', [
-            "title" => "Create Student",
+            "title" => "Create Siswa",
         ]);
     }
 
@@ -67,7 +66,7 @@ class SiswaController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('failed', $validator->errors()->first());
+            return redirect()->back()->with('Gagal', $validator->errors()->first());
         } else {
 
             $user = Siswa::create([
@@ -76,9 +75,9 @@ class SiswaController extends Controller
             ]);
 
             if ($user) {
-                return redirect()->route('admin.siswa.index')->with('success', 'Siswa berhasil ditambahkan.');
+                return redirect()->route('admin.siswa.index')->with('Berhasil', 'Siswa berhasil ditambahkan.');
             } else {
-                return redirect()->back()->with('failed', 'Siswa gagal ditambahkan, silakan coba lagi.');
+                return redirect()->back()->with('Gagal', 'Siswa gagal ditambahkan, silakan coba lagi.');
             }
         }
     }
@@ -86,7 +85,7 @@ class SiswaController extends Controller
     public function edit()
     {
         return view('admin.siswa.edit', [
-            "title" => "Edit Student",
+            "title" => "Edit Siswa",
         ]);
     }
 
@@ -97,7 +96,7 @@ class SiswaController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('failed', $validator->errors()->first());
+            return redirect()->back()->with('Gagal', $validator->errors()->first());
         } else {
             $student = Siswa::find($id);
             if ($student) {
@@ -108,9 +107,9 @@ class SiswaController extends Controller
 
                 $student->save();
 
-                return redirect()->route('admin.siswa.index')->with('success', 'Siswa berhasil diperbarui.');
+                return redirect()->route('admin.siswa.index')->with('Berhasil', 'Siswa berhasil diperbarui.');
             } else {
-                return redirect()->back()->with('failed', 'Siswa gagal diperbarui, silakan coba lagi.');
+                return redirect()->back()->with('Gagal', 'Siswa gagal diperbarui, silakan coba lagi.');
             }
         }
     }
@@ -118,7 +117,7 @@ class SiswaController extends Controller
     public function delete()
     {
         return view('admin.siswa.delete', [
-            "title" => "Delete Student",
+            "title" => "Delete Siswa",
         ]);
     }
 
@@ -127,9 +126,9 @@ class SiswaController extends Controller
         $student = Siswa::find($id)->delete();
 
         if ($student) {
-            return redirect()->route('admin.siswa.index')->with('success', 'Siswa berhasil dihapus.');
+            return redirect()->route('admin.siswa.index')->with('Berhasil', 'Siswa berhasil dihapus.');
         } else {
-            return redirect()->back()->with('failed', 'Siswa gagal dihapus, silakan coba lagi.');
+            return redirect()->back()->with('Gagal', 'Siswa gagal dihapus, silakan coba lagi.');
         }
     }
 }

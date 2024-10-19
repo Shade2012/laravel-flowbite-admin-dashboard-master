@@ -14,7 +14,7 @@ class User extends Authenticatable
 
     protected $fillable = ['image', 'name', 'email', 'password', 'fcm_token', 'role'];
 
-    public function Kelas(): HasOne
+    public function kelas(): HasOne
     {
         return $this->hasOne(Kelas::class, 'wali_kelas_id');
     }
