@@ -51,6 +51,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // Profile
     Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
+    Route::put('/update', [AdminController::class, 'update'])->name('update');
+    Route::put('/change-password', [AdminController::class, 'changePassword'])->name('change-password');
 
     // Manajemen User
     Route::group(["prefix" => "/user"], function () {

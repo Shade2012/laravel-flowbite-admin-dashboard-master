@@ -211,7 +211,7 @@ $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
 
         <div class="items-center justify-between mb-4 border-b border-gray-200 dark:border-gray-700">
           <div class="mb-4">
-            <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Laporan Grafik Hari Ini</h3>
+            <h3 class="flex items-center mb-4 text-lg font-semibold text-gray-900 dark:text-white">Laporan Grafik Hari Ini</h3>
           </div>
           <ul class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent2" role="tablist">
             <li class="w-full">
@@ -275,7 +275,9 @@ $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
                   <div class="flex items-center min-w-0">
                     <div class="flex items-center justify-center w-12 h-12 shadow-top-only rounded-full">
                       <p class="font-medium text-gray-900 truncate dark:text-white">
-                          {{ substr($jadwalGroup->first()->pelajaran->nama_pelajaran,0,1) }}
+                          {{                             
+                              substr($jadwalGroup->first()->pelajaran->nama_pelajaran,0,1)
+                          }}
                       </p>
                   </div>
                     <div class="ml-3">
@@ -315,7 +317,7 @@ $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
                   <div class="flex items-center min-w-0">
                     <div class="flex items-center justify-center w-12 h-12 shadow-top-only rounded-full">
                       <p class="font-medium text-gray-900 truncate dark:text-white">
-                          {{ substr($jadwalGroupGuru->first()->guru->user->name,0,1) }}
+                          {{ substr($jadwalGroupGuru->first()->guru->user->name,4,1)}}
                       </p>
                   </div>
                     <div class="ml-3">

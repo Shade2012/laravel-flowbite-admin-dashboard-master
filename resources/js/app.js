@@ -3,3 +3,4 @@ import './sidebar';
 import './charts';
 import './dark-mode';
 import 'flowbite';
+import './password';
