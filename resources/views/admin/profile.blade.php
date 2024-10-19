@@ -1,6 +1,7 @@
 @extends('layouts.default.dashboard')
 @section('content')
 <div class="grid grid-cols-1 px-4 pt-6 xl:grid-cols-3 xl:gap-4 dark:bg-gray-900">
+   
     <div class="mb-4 col-span-full xl:mb-2">
         <nav class="flex mb-5" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
@@ -18,27 +19,62 @@
               </li>
             </ol>
         </nav>
+        @if(session('errorProfilePhoto'))
+        <div class="alert alert-danger flex items-center mb-4 p-4 text-red-800 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+        role="alert">
+        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 16 16">
+            <path
+                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        <div>
+            {{ session('errorProfilePhoto') }}
+        </div>
+    </div>
+    
+        @endif
+        @if(session('successProfilePhoto'))
+    <div class="alert alert-success flex items-center mb-4 p-4 text-green-800 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+        role="alert">
+        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 16 16">
+            <path
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+        </svg>
+        <div>
+            {{ session('successProfilePhoto') }}
+        </div>
+    </div>
+    @endif
         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Profile</h1>
     </div>
+
     <!-- Right Content -->
     <div class="col-span-full xl:col-auto">
         <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+
             <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
-                <img class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0" src="{{ $admin->image == null ? asset('static/images/users/bonnie-green-2x.png') : asset($admin->image) }}" alt="Admin picture">
+           
                 <div>
+                    <form method="POST" action="{{ route('photoProfile') }}"enctype="multipart/form-data">
+                        @csrf
+                        @method('put')
+                        <img id="image-preview" class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0" src="{{ $admin->image == null ? asset('static/images/users/bonnie-green-2x.png') : asset($admin->image) }}" alt="Admin picture">
+                        <input type="file" id="image" name="image" class="hidden"accept="image/*" onchange="previewImage()">
                     <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Foto Profile</h3>
                     <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                        JPG, GIF or PNG. Max size of 5 MB
+                        JPG, GIF atau PNG. Max size 5 MB
                     </div>
                     <div class="flex items-center space-x-4">
-                        <button type="button" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        <button type="button" onclick="document.getElementById('image').click()" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                             <svg class="w-4 h-4 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z"></path><path d="M9 13h2v5a1 1 0 11-2 0v-5z"></path></svg>
-                            Upload picture
+                            Upload Foto
                         </button>
-                        <button type="button" class="py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                            Hapus Foto Profile Saat Ini
-                        </button>
+                        <button type="submit" 
+                            class="py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            Simpan Perubahan
+                            </button>
+                
                     </div>
+                </form>
                     <button type="button" 
                     data-modal-target="logout-profile-modal"
                     data-modal-toggle="logout-profile-modal"
@@ -73,9 +109,10 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
                 </div>
+                    </div>
+                </div>
+            
             </div>
         </div>
     </div>
@@ -94,7 +131,7 @@
 
         @endif
         @if(session('success'))
-        <div class="alert alert-success flex items-center mb-4 p-4 text-green-800 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+    <div class="alert alert-success flex items-center mb-4 p-4 text-green-800 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
         role="alert">
         <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 16 16">
             <path
@@ -126,7 +163,7 @@
             </form>
         </div>
         @if(session('errorValidator'))
-        <div class="alert alert-danger flex items-center mb-4 p-4 text-red-800 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+    <div class="alert alert-danger flex items-center mb-4 p-4 text-red-800 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
         role="alert">
         <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 16 16">
             <path
@@ -138,7 +175,7 @@
     </div>
         @endif
         @if(session('successPassword'))
-        <div class="alert alert-success flex items-center mb-4 p-4 text-green-800 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+    <div class="alert alert-success flex items-center mb-4 p-4 text-green-800 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
         role="alert">
         <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 16 16">
             <path
@@ -314,4 +351,19 @@
         }
     });
 }
+
+    function previewImage() {
+        const fileInput = document.getElementById('image');
+        const imagePreview = document.getElementById('image-preview');
+
+        const file = fileInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                imagePreview.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
 </script>
