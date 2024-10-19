@@ -144,11 +144,11 @@
                                             alt="User Image">
                                     </td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $guru->user->name }}</td>
+                                        {{ $guru->user->name ?? 'N/A' }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $guru->user->email }}</td>
+                                        {{ $guru->user->email ?? 'N/A' }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $guru->pelajaran->nama_pelajaran }}</td>
+                                        {{ $guru->pelajaran->nama_pelajaran ?? 'N/A' }}</td>
                                     <td class="p-4 space-x-2 whitespace-nowrap">
                                         <button type="button" data-modal-target="detail-guru-modal{{ $guru->id }}"
                                             data-modal-toggle="detail-guru-modal{{ $guru->id }}"

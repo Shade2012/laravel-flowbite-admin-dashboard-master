@@ -13,11 +13,11 @@ class RuangController extends Controller
         $searchTerm = $request->input('name');
 
         if ($searchTerm) {
-            $ruang = Ruang::with('jadwalPelajaran.pelajaran' , 'jadwalPelajaran.guru')
+            $ruang = Ruang::with('jadwalPelajaran.kelas', 'jadwalPelajaran.pelajaran', 'jadwalPelajaran.guru.user', 'jadwalPelajaran.guru.pelajaran', 'jadwalPelajaran.ruang')
                 ->where('nama_ruang', 'LIKE', '%' . $searchTerm . '%')
                 ->paginate(10);
         } else {
-            $ruang = Ruang::with( 'jadwalPelajaran.pelajaran', 'jadwalPelajaran.guru')
+            $ruang = Ruang::with('jadwalPelajaran.kelas', 'jadwalPelajaran.pelajaran', 'jadwalPelajaran.guru.user', 'jadwalPelajaran.guru.pelajaran', 'jadwalPelajaran.ruang')
                 ->paginate(10);
         }
 
@@ -27,50 +27,89 @@ class RuangController extends Controller
         ]);
     }
 
+    public function show()
+    {
+        return view('admin.ruang.detail', [
+            "title" => "Detail Ruang",
+        ]);
+    }
+
+    public function create()
+    {
+        return view('admin.ruang.create', [
+            "title" => "Create Ruang",
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama_ruang' => 'required|string|max:255'
+            'nama_ruang' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->with('Gagal', $validator->errors()->first());
+        } else {
+
+            $ruang = Ruang::create([
+                'nama_ruang' => $request->nama_ruang,
+            ]);
+
+            if ($ruang) {
+                return redirect()->route('admin.ruang.index')->with('Berhasil', 'Ruang berhasil ditambahkan.');
+            } else {
+                return redirect()->back()->with('Gagal', 'Ruang gagal ditambahkan, silakan coba lagi.');
+            }
         }
-
-        Ruang::create($request->all());
-
-        return redirect()->route('admin.ruang.index')->with('success', 'Ruang berhasil ditambahkan.');
     }
 
-    public function edit($id)
+    public function edit()
     {
-        $ruang = Ruang::findOrFail($id);
-        return view('admin.ruang.edit', compact('ruang'));
+        return view('admin.ruang.edit', [
+            "title" => "Edit Ruang",
+        ]);
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'nama_ruang' => 'required|string|max:255'
+            'nama_ruang' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->with('Gagal', $validator->errors()->first());
+        } else {
+            $ruang = Ruang::find($id);
+            if ($ruang) {
+
+                $ruang->fill($request->only([
+                    'nama_ruang',
+                ]));
+
+                $ruang->save();
+
+                return redirect()->route('admin.ruang.index')->with('Berhasil', 'Ruang berhasil diperbarui.');
+            } else {
+                return redirect()->back()->with('Gagal', 'Ruang gagal diperbarui, silakan coba lagi.');
+            }
         }
+    }
 
-        $ruang = Ruang::findOrFail($id);
-        $ruang->update($request->all());
-
-        return redirect()->route('admin.ruang.index')->with('success', 'Ruang berhasil diupdate.');
+    public function delete()
+    {
+        return view('admin.ruang.delete', [
+            "title" => "Delete Ruang",
+        ]);
     }
 
     public function destroy($id)
     {
-        Ruang::findOrFail($id)->delete();
-        return redirect()->route('admin.ruang.index')->with('success', 'Ruang berhasil dihapus.');
+        $ruang = Ruang::find($id)->delete();
+
+        if ($ruang) {
+            return redirect()->route('admin.ruang.index')->with('Berhasil', 'Ruang berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('Gagal', 'Ruang gagal dihapus, silakan coba lagi.');
+        }
     }
 }
