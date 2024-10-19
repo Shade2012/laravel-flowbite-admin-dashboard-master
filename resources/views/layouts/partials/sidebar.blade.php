@@ -38,7 +38,6 @@
             </button>
             <ul id="dropdown-crud" class="space-y-2 py-2 {{ Request::is('crud/*') ? 'block' : 'hidden' }}">
               <li>
-<<<<<<< HEAD
                 <a href="{{ url('admin/user/all') }}" class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700
                   {{ Request::is('user') ? 'bg-gray-200 dark:bg-gray-700' : '' }}">
                   User
@@ -46,9 +45,6 @@
               </li>
               <li>
                 <a href="{{ url('admin/kelas/all') }}" class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700
-=======
-                <a href="{{ url('kelas') }}" class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700
->>>>>>> 000de6bb2c6bd317e4168bb69838cdbfef1901f0
                   {{ Request::is('kelas') ? 'bg-gray-200 dark:bg-gray-700' : '' }}">
                   Kelas
                 </a>
@@ -83,14 +79,14 @@
             <a href="{{ url('admin/jadwal-pelajaran/all') }}" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
               <svg class="w-6 h-6 text-gray-500 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z"/>
-              </svg>              
+              </svg>
               <span class="ml-3" sidebar-toggle-item>Manajemen Jadwal Pelajaran</span>
           </a>
           </li>
           <li>
             <a href="{{ url('admin/user/all') }}" class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
               <svg class="w-6 h-6 text-gray-500 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>              
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
               <span class="ml-3" sidebar-toggle-item>Manajemen Akun</span>
           </a>
           </li>

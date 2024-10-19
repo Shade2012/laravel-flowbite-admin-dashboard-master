@@ -85,6 +85,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('add', [PelajaranController::class, 'store'])->name('admin.pelajaran.store');
         Route::get('edit/{pelajaran}', [PelajaranController::class, 'edit'])->name('admin.pelajaran.edit');
         Route::put('update/{pelajaran}', [PelajaranController::class, 'update'])->name('admin.pelajaran.update');
+        Route::delete('delete/{pelajaran}', [PelajaranController::class, 'delete'])->name('admin.pelajaran.delete');
         Route::delete('delete/{pelajaran}', [PelajaranController::class, 'destroy'])->name('admin.pelajaran.destroy');
     });
 
