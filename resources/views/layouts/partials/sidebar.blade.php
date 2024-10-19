@@ -38,13 +38,13 @@
             </button>
             <ul id="dropdown-crud" class="space-y-2 py-2 {{ Request::is('crud/*') ? 'block' : 'hidden' }}">
               <li>
-                <a href="{{ url('kelas') }}" class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700
+                <a href="{{ url('admin/kelas/all') }}" class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700
                   {{ Request::is('kelas') ? 'bg-gray-200 dark:bg-gray-700' : '' }}">
                   Kelas
                 </a>
               </li>
               <li>
-                <a href="{{ url('pelajaran') }}" class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700
+                <a href="{{ url('admin/pelajaran/all') }}" class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700
                   {{ Request::is('pelajaran') ? 'bg-gray-200 dark:bg-gray-700' : '' }}">
                   Pelajaran
                 </a>
