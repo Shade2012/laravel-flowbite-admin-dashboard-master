@@ -15,7 +15,7 @@ class PelajaranController extends Controller
         $searchTerm = $request->input('name');
 
         if ($searchTerm) {
-            $pelajaran = Pelajaran::with('guru.user')
+            $pelajaran = Pelajaran::with('guru.user' , 'guru.pelajaran')
                 ->where('nama_pelajaran', 'LIKE', '%' . $searchTerm . '%')
                 ->paginate(10);
         } else {
@@ -29,11 +29,14 @@ class PelajaranController extends Controller
             'title' => 'All Pelajaran',
             'pelajaran' => $pelajaran,
             'users' => $users,
+<<<<<<< HEAD
         ]);
         $pelajaran = Pelajaran::all();
         return view('admin.pelajaran.index', [
             'title' => 'All Pelajaran',
             'pelajaran' => $pelajaran
+=======
+>>>>>>> 76ad2872d242a0a6b9b6fdae8f2ac203c1a8e563
         ]);
     }
 

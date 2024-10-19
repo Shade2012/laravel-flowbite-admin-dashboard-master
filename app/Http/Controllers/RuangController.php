@@ -8,15 +8,23 @@ use Illuminate\Support\Facades\Validator;
 
 class RuangController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $ruang = Ruang::all();
-        return view('admin.ruang.index', compact('ruang'));
-    }
+        $searchTerm = $request->input('name');
 
-    public function create()
-    {
-        return view('admin.ruang.create');
+        if ($searchTerm) {
+            $ruang = Ruang::with('jadwalPelajaran.pelajaran' , 'jadwalPelajaran.guru')
+                ->where('nama_ruang', 'LIKE', '%' . $searchTerm . '%')
+                ->paginate(10);
+        } else {
+            $ruang = Ruang::with( 'jadwalPelajaran.pelajaran', 'jadwalPelajaran.guru')
+                ->paginate(10);
+        }
+
+        return view('admin.ruang.index', [
+            'title' => 'All Ruang',
+            'ruang' => $ruang,
+        ]);
     }
 
     public function store(Request $request)
