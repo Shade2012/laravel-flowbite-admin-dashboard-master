@@ -42,12 +42,12 @@ class AdminAuthController extends Controller
             $user = Auth::user();
             if ($user->role !== 'admin') {
                 Auth::logout();
-                return redirect()->back()->with('failed', 'Akses ditolak. Anda tidak memiliki izin untuk masuk sebagai admin.');
+                return redirect()->back()->with('Gagal', 'Akses ditolak. Anda tidak memiliki izin untuk masuk sebagai admin.');
             }
 
-            return redirect()->route('index')->with('success', 'Berhasil masuk! Selamat datang kembali.');
+            return redirect()->route('index')->with('Berhasil', 'Berhasil masuk! Selamat datang kembali.');
         } else {
-            return redirect()->back()->with('failed', 'Gagal masuk. Silakan periksa kembali email dan kata sandi Anda.');
+            return redirect()->back()->with('Gagal', 'Gagal masuk. Silakan periksa kembali email dan kata sandi Anda.');
         }
     }
 
@@ -70,11 +70,11 @@ class AdminAuthController extends Controller
         ]);
 
         if ($request->password != $request->password_confirmation) {
-            return redirect()->back()->with('failed', 'Password dan konfirmasi tidak cocok. Silakan coba lagi.');
+            return redirect()->back()->with('Gagal', 'Password dan konfirmasi tidak cocok. Silakan coba lagi.');
         }
 
         if ($validator->fails()) {
-            return redirect()->back()->with('failed', 'Email sudah terdaftar. Silakan gunakan email lain atau login dengan akun yang sudah ada.');
+            return redirect()->back()->with('Gagal', 'Email sudah terdaftar. Silakan gunakan email lain atau login dengan akun yang sudah ada.');
         }
 
         $validatedData = $validator->validated();
@@ -83,9 +83,9 @@ class AdminAuthController extends Controller
         $user = User::create($validatedData);
 
         if ($user) {
-            return redirect()->route('sign-in')->with('success', 'Pendaftaran berhasil! Silakan masuk untuk melanjutkan.');
+            return redirect()->route('sign-in')->with('Berhasil', 'Pendaftaran berhasil! Silakan masuk untuk melanjutkan.');
         } else {
-            return redirect()->back()->with('failed', 'Pendaftaran gagal. Silakan coba lagi.');
+            return redirect()->back()->with('Gagal', 'Pendaftaran gagal. Silakan coba lagi.');
         }
     }
 
@@ -108,7 +108,7 @@ class AdminAuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            return redirect()->back()->with('failed', 'Alamat email tidak ditemukan.');
+            return redirect()->back()->with('Gagal', 'Alamat email tidak ditemukan.');
         }
 
         if ($validator->fails()) {
@@ -134,9 +134,9 @@ class AdminAuthController extends Controller
 
             Mail::to($request->email)->send(new OtpMail($mailData));
 
-            return redirect()->route('verify-code')->with('success', 'Kode OTP telah dikirim ke email Anda.');
+            return redirect()->route('verify-code')->with('Berhasil', 'Kode OTP telah dikirim ke email Anda.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('failed', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->back()->with('Gagal', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -145,7 +145,7 @@ class AdminAuthController extends Controller
         $email = $request->session()->get('email');
 
         if (!$email) {
-            return redirect()->back()->with('failed', 'Alamat email tidak ditemukan.');
+            return redirect()->back()->with('Gagal', 'Alamat email tidak ditemukan.');
         }
 
         $otp = rand(100000, 999999);
@@ -164,9 +164,9 @@ class AdminAuthController extends Controller
 
             Mail::to($email)->send(new OtpMail($mailData));
 
-            return redirect()->route('verify-code')->with('success', 'Kode OTP baru telah dikirim ke email Anda.');
+            return redirect()->route('verify-code')->with('Berhasil', 'Kode OTP baru telah dikirim ke email Anda.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('failed', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->back()->with('Gagal', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -196,7 +196,7 @@ class AdminAuthController extends Controller
         $email = $request->session()->get('email');
 
         if (!$email) {
-            return redirect()->back()->with('failed', 'Alamat email tidak ditemukan.');
+            return redirect()->back()->with('Gagal', 'Alamat email tidak ditemukan.');
         }
 
         if ($validator->fails()) {
@@ -214,10 +214,10 @@ class AdminAuthController extends Controller
         if ($otpRecord) {
             $otpRecord->update(['is_used' => true]);
 
-            return redirect()->route('reset-password')->with('success', 'Kode OTP berhasil diverifikasi. Anda dapat mengatur ulang kata sandi Anda sekarang.');
+            return redirect()->route('reset-password')->with('Berhasil', 'Kode OTP berhasil diverifikasi. Anda dapat mengatur ulang kata sandi Anda sekarang.');
         }
 
-        return redirect()->back()->with('failed', 'Kode OTP tidak valid atau sudah kedaluwarsa.');
+        return redirect()->back()->with('Gagal', 'Kode OTP tidak valid atau sudah kedaluwarsa.');
     }
 
     public function resetPassword()
@@ -239,11 +239,11 @@ class AdminAuthController extends Controller
         $email = $request->session()->get('email');
 
         if (!$email) {
-            return redirect()->back()->with('failed', 'Alamat email tidak ditemukan.');
+            return redirect()->back()->with('Gagal', 'Alamat email tidak ditemukan.');
         }
 
         if ($request->password != $request->password_confirmation) {
-            return redirect()->back()->with('failed', 'Password dan konfirmasi tidak cocok. Silakan coba lagi.');
+            return redirect()->back()->with('Gagal', 'Password dan konfirmasi tidak cocok. Silakan coba lagi.');
         }
 
         if ($validator->fails()) {
@@ -256,9 +256,9 @@ class AdminAuthController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            return redirect()->route('sign-in')->with('success', 'Kata sandi Anda telah diperbarui! Silakan masuk dengan kata sandi baru Anda.');
+            return redirect()->route('sign-in')->with('Berhasil', 'Kata sandi Anda telah diperbarui! Silakan masuk dengan kata sandi baru Anda.');
         } else {
-            return redirect()->back()->with('failed', 'Pengguna tidak ditemukan.');
+            return redirect()->back()->with('Gagal', 'Pengguna tidak ditemukan.');
         }
     }
 
@@ -268,6 +268,6 @@ class AdminAuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('sign-in')->with('success', 'Anda telah berhasil keluar. Sampai jumpa lagi!');
+        return redirect()->route('sign-in')->with('Berhasil', 'Anda telah berhasil keluar. Sampai jumpa lagi!');
     }
 }
