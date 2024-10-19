@@ -60,45 +60,45 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('add', [UserController::class, 'store'])->name('admin.user.store');
         Route::get('edit/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
         Route::put('update/{id}', [UserController::class, 'update'])->name('admin.user.update');
-        Route::delete('delete/{id}', [UserController::class, 'delete'])->name('admin.user.delete');
+        Route::get('delete/{id}', [UserController::class, 'delete'])->name('admin.user.delete');
         Route::delete('destroy/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
     });
 
     // Manajemen Kelas
     Route::group(["prefix" => "/kelas"], function () {
         Route::get('all', [KelasController::class, 'index'])->name('admin.kelas.index');
-        Route::get('/detail/{kelas}', [KelasController::class, 'show'])->name('admin.kelas.detail');
+        Route::get('/detail/{id}', [KelasController::class, 'show'])->name('admin.kelas.detail');
         Route::get('create', [KelasController::class, 'create'])->name('admin.kelas.create');
         Route::post('add', [KelasController::class, 'store'])->name('admin.kelas.store');
-        Route::get('edit/{kelas}', [KelasController::class, 'edit'])->name('admin.kelas.edit');
-        Route::put('update/{kelas}', [KelasController::class, 'update'])->name('admin.kelas.update');
-        Route::delete('delete/{kelas}', [KelasController::class, 'delete'])->name('admin.kelas.delete');
-        Route::delete('delete/{kelas}', [KelasController::class, 'destroy'])->name('admin.kelas.destroy');
+        Route::get('edit/{id}', [KelasController::class, 'edit'])->name('admin.kelas.edit');
+        Route::put('update/{id}', [KelasController::class, 'update'])->name('admin.kelas.update');
+        Route::get('delete/{id}', [KelasController::class, 'delete'])->name('admin.kelas.delete');
+        Route::delete('destroy/{id}', [KelasController::class, 'destroy'])->name('admin.kelas.destroy');
     });
 
 
     // Manajemen Pelajaran
     Route::group(["prefix" => "/pelajaran"], function () {
         Route::get('all', [PelajaranController::class, 'index'])->name('admin.pelajaran.index');
-        Route::get('/detail/{pelajaran}', [PelajaranController::class, 'show'])->name('admin.pelajaran.detail');
+        Route::get('/detail/{id}', [PelajaranController::class, 'show'])->name('admin.pelajaran.detail');
         Route::get('create', [PelajaranController::class, 'create'])->name('admin.pelajaran.create');
         Route::post('add', [PelajaranController::class, 'store'])->name('admin.pelajaran.store');
-        Route::get('edit/{pelajaran}', [PelajaranController::class, 'edit'])->name('admin.pelajaran.edit');
-        Route::put('update/{pelajaran}', [PelajaranController::class, 'update'])->name('admin.pelajaran.update');
-        Route::delete('delete/{pelajaran}', [PelajaranController::class, 'delete'])->name('admin.pelajaran.delete');
-        Route::delete('delete/{pelajaran}', [PelajaranController::class, 'destroy'])->name('admin.pelajaran.destroy');
+        Route::get('edit/{id}', [PelajaranController::class, 'edit'])->name('admin.pelajaran.edit');
+        Route::put('update/{id}', [PelajaranController::class, 'update'])->name('admin.pelajaran.update');
+        Route::get('delete/{id}', [PelajaranController::class, 'delete'])->name('admin.pelajaran.delete');
+        Route::delete('destroy/{id}', [PelajaranController::class, 'destroy'])->name('admin.pelajaran.destroy');
     });
 
     // Manajemen Ruang
     Route::group(["prefix" => "/ruang"], function () {
         Route::get('all', [RuangController::class, 'index'])->name('admin.ruang.index');
-        Route::get('/detail/{ruang}', [RuangController::class, 'show'])->name('admin.ruang.detail');
+        Route::get('/detail/{id}', [RuangController::class, 'show'])->name('admin.ruang.detail');
         Route::get('create', [RuangController::class, 'create'])->name('admin.ruang.create');
         Route::post('add', [RuangController::class, 'store'])->name('admin.ruang.store');
-        Route::get('edit/{ruang}', [RuangController::class, 'edit'])->name('admin.ruang.edit');
-        Route::put('update/{ruang}', [RuangController::class, 'update'])->name('admin.ruang.update');
-        Route::delete('delete/{ruang}', [RuangController::class, 'delete'])->name('admin.ruang.delete');
-        Route::delete('delete/{ruang}', [RuangController::class, 'destroy'])->name('admin.ruang.destroy');
+        Route::get('edit/{id}', [RuangController::class, 'edit'])->name('admin.ruang.edit');
+        Route::put('update/{id}', [RuangController::class, 'update'])->name('admin.ruang.update');
+        Route::get('delete/{id}', [RuangController::class, 'delete'])->name('admin.ruang.delete');
+        Route::delete('destroy/{id}', [RuangController::class, 'destroy'])->name('admin.ruang.destroy');
     });
 
     // Manajemen Guru
@@ -109,7 +109,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('add', [GuruController::class, 'store'])->name('admin.guru.store');
         Route::get('edit/{id}', [GuruController::class, 'edit'])->name('admin.guru.edit');
         Route::put('update/{id}', [GuruController::class, 'update'])->name('admin.guru.update');
-        Route::delete('delete/{id}', [GuruController::class, 'delete'])->name('admin.guru.delete');
+        Route::get('delete/{id}', [GuruController::class, 'delete'])->name('admin.guru.delete');
         Route::delete('destroy/{id}', [GuruController::class, 'destroy'])->name('admin.guru.destroy');
     });
 
@@ -121,7 +121,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('add', [SiswaController::class, 'store'])->name('admin.siswa.store');
         Route::get('edit/{id}', [SiswaController::class, 'edit'])->name('admin.siswa.edit');
         Route::put('update/{id}', [SiswaController::class, 'update'])->name('admin.siswa.update');
-        Route::delete('delete/{id}', [SiswaController::class, 'delete'])->name('admin.siswa.delete');
+        Route::get('delete/{id}', [SiswaController::class, 'delete'])->name('admin.siswa.delete');
         Route::delete('destroy/{id}', [SiswaController::class, 'destroy'])->name('admin.siswa.destroy');
     });
 
@@ -133,7 +133,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('add', [JadwalPelajaranController::class, 'store'])->name('admin.jadwal_pelajaran.store');
         Route::get('edit/{id}', [JadwalPelajaranController::class, 'edit'])->name('admin.jadwal_pelajaran.edit');
         Route::put('update/{id}', [JadwalPelajaranController::class, 'update'])->name('admin.jadwal_pelajaran.update');
-        Route::delete('delete/{id}', [JadwalPelajaranController::class, 'delete'])->name('admin.jadwal_pelajaran.delete');
+        Route::get('delete/{id}', [JadwalPelajaranController::class, 'delete'])->name('admin.jadwal_pelajaran.delete');
         Route::delete('destroy/{id}', [JadwalPelajaranController::class, 'destroy'])->name('admin.jadwal_pelajaran.destroy');
     });
 });

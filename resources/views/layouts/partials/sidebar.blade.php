@@ -38,32 +38,20 @@
             </button>
             <ul id="dropdown-crud" class="space-y-2 py-2 {{ Request::is('crud/*') ? 'block' : 'hidden' }}">
               <li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 32b39cbb76d44554fe81e43115fc4e7f2fb57e59
-                <a href="{{ url('admin/user/all') }}" class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700
-                  {{ Request::is('user') ? 'bg-gray-200 dark:bg-gray-700' : '' }}">
-                  User
-                </a>
-              </li>
-              <li>
->>>>>>> 76ad2872d242a0a6b9b6fdae8f2ac203c1a8e563
                 <a href="{{ url('admin/kelas/all') }}" class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700
-                  {{ Request::is('kelas') ? 'bg-gray-200 dark:bg-gray-700' : '' }}">
+                  {{ Request::is('admin/kelas/all') ? 'bg-gray-200 dark:bg-gray-700' : '' }}">
                   Kelas
                 </a>
               </li>
               <li>
                 <a href="{{ url('admin/pelajaran/all') }}" class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700
-                  {{ Request::is('pelajaran') ? 'bg-gray-200 dark:bg-gray-700' : '' }}">
+                  {{ Request::is('admin/pelajaran/all') ? 'bg-gray-200 dark:bg-gray-700' : '' }}">
                   Pelajaran
                 </a>
               </li>
               <li>
                 <a href="{{ url('admin/ruang/all') }}" class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700
-                  {{ Request::is('ruang') ? 'bg-gray-200 dark:bg-gray-700' : '' }}">
+                  {{ Request::is('admin/ruang/all') ? 'bg-gray-200 dark:bg-gray-700' : '' }}">
                   Ruang
                 </a>
               </li>
