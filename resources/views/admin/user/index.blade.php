@@ -1,5 +1,6 @@
 @extends('layouts.default.dashboard')
 @section('content')
+
     <?php
     $id = 1 + ($users->currentPage() - 1) * 10;
     ?>
@@ -10,7 +11,7 @@
                 <nav class="flex mb-5" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
                         <li class="inline-flex items-center">
-                            <a href="{{ url('admin/dashboard') }}"
+                            <a href="#"
                                 class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white">
                                 <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -29,8 +30,8 @@
                                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                         clip-rule="evenodd"></path>
                                 </svg>
-                                <a href="{{ url('admin/user/all') }}"
-                                    class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">User</a>
+                                <a href="#"
+                                    class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">Users</a>
                             </div>
                         </li>
                         <li>
@@ -46,7 +47,7 @@
                         </li>
                     </ol>
                 </nav>
-                <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Semua User</h1>
+                <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">All Users</h1>
             </div>
             <div class="sm:flex">
                 <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
@@ -55,7 +56,7 @@
                         <div class="relative mt-1 lg:w-64 xl:w-96">
                             <input type="text" name="name" id="users-search"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Cari nama user" value="{{ request('name') }}">
+                                placeholder="Search for users" value="{{ request('name') }}">
                         </div>
                     </form>
                 </div>
@@ -68,14 +69,14 @@
                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        Tambah User
+                        Add user
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    @if (session('Berhasil'))
+    @if (session('success'))
         <div class="alert alert-success flex items-center mb-4 p-4 text-green-800 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
             role="alert">
             <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 16 16">
@@ -83,10 +84,10 @@
                     d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
             </svg>
             <div>
-                {{ session('Berhasil') }}
+                {{ session('success') }}
             </div>
         </div>
-    @elseif(session('Gagal'))
+    @elseif(session('failed'))
         <div class="alert alert-danger flex items-center mb-4 p-4 text-red-800 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
             role="alert">
             <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 16 16">
@@ -94,7 +95,7 @@
                     d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
             </svg>
             <div>
-                {{ session('Gagal') }}
+                {{ session('failed') }}
             </div>
         </div>
     @endif
@@ -112,11 +113,11 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                    Gambar
+                                    Image
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                    Nama
+                                    Name
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
@@ -124,11 +125,11 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                    Peran
+                                    Role
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                    Tindakan
+                                    Actions
                                 </th>
                             </tr>
                         </thead>
@@ -139,9 +140,8 @@
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $id++ }}</td>
                                     <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                        <img class="w-10 h-10 rounded-full"
-                                            src="{{ asset('storage/' . ($user->image ?? 'images/profile.jpg')) }}"
-                                            alt="User Image">
+                                        <img  class="w-32 h-32 rounded-full object-cover" src="{{ is_string($user->image) && !empty($user->image) ? url($user->image) : asset('images/poto_profil.jpg') }}" alt="User Image">
+
                                     </td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $user->name }}</td>
@@ -236,6 +236,7 @@
                                     </td>
                                 </tr>
                             @endforeach
+
                         </tbody>
                     </table>
                 </div>

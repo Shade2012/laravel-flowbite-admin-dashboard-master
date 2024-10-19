@@ -52,6 +52,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // Profile
     Route::get('/profile', [AdminController::class, 'profile'])->name('profile');
     Route::put('/update', [AdminController::class, 'update'])->name('update');
+    Route::put('/photoProfile', [AdminController::class, 'updateImage'])->name('photoProfile');
     Route::put('/change-password', [AdminController::class, 'changePassword'])->name('change-password');
 
     // Manajemen User

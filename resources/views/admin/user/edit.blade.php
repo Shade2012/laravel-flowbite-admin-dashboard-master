@@ -32,9 +32,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar</label>
                                 <div class="flex items-start space-x-4">
                                     <div class="mb-4">
-                                        <img id="image-preview{{ $user->id }}"
-                                            src="{{ asset('storage/' . ($user->image ?? 'images/profile.jpg')) }}"
-                                            alt="User Image" class="w-32 h-32 rounded-full object-cover">
+                                        <img id="image-preview{{ $user->id }}" class="w-32 h-32 rounded-full object-cover" src="{{ is_string($user->image) && !empty($user->image) ? url($user->image) : asset('images/poto_profil.jpg') }}" alt="User Image">
                                     </div>
                                     <button type="button"
                                         onclick="document.getElementById('image{{ $user->id }}').click()"

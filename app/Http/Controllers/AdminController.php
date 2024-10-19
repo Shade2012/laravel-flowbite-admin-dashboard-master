@@ -15,6 +15,7 @@ class AdminController extends Controller
     
     public function dashboard(Request $request)
     {
+        $admin = Auth::user();
         Carbon::setLocale('id'); // Set locale to Indonesian
         $hari = Carbon::now()->isoFormat('dddd');
         $kelas = Kelas::with('jadwalPelajaran')->get();
@@ -35,6 +36,7 @@ class AdminController extends Controller
             "jadwalNow" => $jadwalNow,
             "jadwalHariIni"=>$jadwalHariIni,
             "hari" => $hari,
+            "admin"=>$admin
             // "pelajaran"=> $jadwalNow ? $jadwalNow->pelajaran->nama_pelajaran : 'No pelajaran found'
         ]);
     }
@@ -99,6 +101,47 @@ class AdminController extends Controller
             return redirect('/admin/profile')->with('success', 'Data umum berhasil dirubah');
         }
     }
+
+    public function updateImage(Request $request)
+    {
+        $adminLogin = Auth::user();
+        $admin = User::find($adminLogin->id);
+        
+        // Validate image file
+        $validateData = $request->validate([
+            "image" => "nullable|image|max:255" // Ensure it's an image file and not exceeding size limit
+        ]);
+    
+        if ($request->hasFile('image')) {
+            // Check if the user already has an image
+            if ($admin->image) {
+                $existingImagePath = public_path($admin->image); // Get the full path of the existing image
+                
+                if (file_exists($existingImagePath)) {
+                    unlink($existingImagePath); // Delete the existing image
+                }
+            }
+    
+            // Upload the new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->extension(); // Create a unique name for the new image
+            $image->move(public_path('images'), $imageName); // Move the image to the public/images directory
+            $admin->image = 'images/' . $imageName; // Update the user's image path
+        }else{
+            return redirect('/admin/profile')->with('successProfilePhoto', 'Tidak ada perubahan');
+        }
+    
+        // Save the updated user profile
+        $result = $admin->save();
+    
+        // Check result and redirect accordingly
+        if ($result) {
+            return redirect('/admin/profile')->with('successProfilePhoto', 'Foto Profil berhasil dirubah');
+        } else {
+            return redirect('/admin/profile')->with('errorProfilePhoto', 'Gagal mengubah Foto Profil');
+        }
+    }
+    
     public function profile()
     {
         $admin = Auth::user();
