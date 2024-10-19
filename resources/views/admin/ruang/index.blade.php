@@ -40,7 +40,7 @@
                     </form>
                 </div>
                 <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
-                    <button type="button" data-modal-target="add-pelajaran-modal" data-modal-toggle="add-pelajaran-modal" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    <button type="button" data-modal-target="add-ruang-modal" data-modal-toggle="add-ruang-modal" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                         Tambah Ruang
                     </button>
@@ -82,6 +82,7 @@
                         <tr>
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">No</th>
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">Nama Ruang</th>
+                            <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">Nama Pelajaran</th>
                             <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">Tindakan</th>
                         </tr>
                         </thead>
@@ -90,6 +91,8 @@
                             <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $id++ }}</td>
                                 <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $room->nama_ruang ?? 'N/A' }}</td>
+{{--                                <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $room->jadwalPelajaran->pelajaran ?? 'N/A' }}</td>--}}
+{{--                                <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $room->jadwalPelajaran->pelajaran->nama_pelajaran ?? 'N/A' }}</td>--}}
                                 <td class="p-4 space-x-2 whitespace-nowrap">
                                     <button type="button" data-modal-target="detail-ruang-modal{{ $room->id }}" data-modal-toggle="detail-ruang-modal{{ $room->id }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Detail Ruang</button>
                                     <button type="button" data-modal-target="delete-ruang-modal{{ $room->id }}" data-modal-toggle="delete-ruang-modal{{$room->id}}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">Delete Ruang</button>

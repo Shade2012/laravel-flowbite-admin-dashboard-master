@@ -13,11 +13,11 @@ class RuangController extends Controller
         $searchTerm = $request->input('name');
 
         if ($searchTerm) {
-            $ruang = Ruang::with('jadwalPelajaran')
-                ->where('nama_pelajaran', 'LIKE', '%' . $searchTerm . '%')
+            $ruang = Ruang::with('jadwalPelajaran.pelajaran' , 'jadwalPelajaran.guru')
+                ->where('nama_ruang', 'LIKE', '%' . $searchTerm . '%')
                 ->paginate(10);
         } else {
-            $ruang = Ruang::with('jadwalPelajaran')
+            $ruang = Ruang::with( 'jadwalPelajaran.pelajaran', 'jadwalPelajaran.guru')
                 ->paginate(10);
         }
 

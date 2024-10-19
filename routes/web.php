@@ -97,6 +97,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('add', [RuangController::class, 'store'])->name('admin.ruang.store');
         Route::get('edit/{ruang}', [RuangController::class, 'edit'])->name('admin.ruang.edit');
         Route::put('update/{ruang}', [RuangController::class, 'update'])->name('admin.ruang.update');
+        Route::delete('delete/{ruang}', [RuangController::class, 'delete'])->name('admin.ruang.delete');
         Route::delete('delete/{ruang}', [RuangController::class, 'destroy'])->name('admin.ruang.destroy');
     });
 
