@@ -28,22 +28,24 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Guru</label>
                             <div>
                                 <img id="image-preview"
-                                    src="{{ asset('storage/' . ($lesson->guru->first()->user->image ?? 'images/profile.jpg')) }}"
-                                    alt="User Image" class="w-32 h-32 rounded-full object-cover">
+                                    src="{{ is_string($lesson->guru->first()->user->image ?? '') && !empty($lesson->guru->first()->user->image ?? '') ? url($lesson->guru->first()->user->image) : asset('storage/images/profile.jpg') }}"
+                                    alt="Foto Guru" class="w-32 h-32 rounded-full object-cover">
                             </div>
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="pelajaran"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pelajaran</label>
-                            <input disabled="true" type="text" value="{{ old('pelajaran', $lesson->nama_pelajaran ?? 'N/A') }}"
-                                name="pelajaran" id="pelajaran"
+                            <input disabled="true" type="text"
+                                value="{{ old('pelajaran', $lesson->nama_pelajaran ?? 'N/A') }}" name="pelajaran"
+                                id="pelajaran"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Your Lesson">
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                            <input disabled="true" type="text" value="{{ old('name', $lesson->guru->first()->user->name ?? 'N/A') }}" name="name"
+                            <input disabled="true" type="text"
+                                value="{{ old('name', $lesson->guru->first()->user->name ?? 'N/A') }}" name="name"
                                 id="name"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Your Name">
@@ -51,8 +53,9 @@
                         <div class="col-span-6 sm:col-span-3">
                             <label for="email"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <input disabled="true" type="email" value="{{ old('email', $lesson->guru->first()->user->email ?? 'N/A') }}"
-                                name="email" id="email"
+                            <input disabled="true" type="email"
+                                value="{{ old('email', $lesson->guru->first()->user->email ?? 'N/A') }}" name="email"
+                                id="email"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="example@gmail.com">
                         </div>

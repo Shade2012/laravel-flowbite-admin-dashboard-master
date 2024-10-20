@@ -1,56 +1,57 @@
 @extends('layouts.default.dashboard')
 @section('content')
-@vite(['resources/css/app.css','resources/js/app.js'])
-<?php
-$id = 1 + ($jadwalNow->currentPage() - 1) * 8;
-?>
-<div class="px-4 pt-6">
-  <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-    <!-- Card header -->
-    <div class="items-center justify-between lg:flex">
-      <div class="mb-4 lg:mb-0">
-        <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Jadwal Hari Ini</h3>
-        <span class="text-base font-normal text-gray-500 dark:text-gray-400">Kelas : {{ $selectedClass->nama_kelas }}</span>
-      </div>
-      <div class="items-center sm:flex">
-        <div class="flex items-center">
-          <button id="dropdownDefault" data-dropdown-toggle="dropdown"
-            class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-            type="button">
-            Filter Kelas
-            <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </button>
-          <!-- Dropdown menu -->
-          <div id="dropdown" class="z-10 hidden w-56 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
-            <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
-              Kelas
-            </h6>
-            <form action="{{ route('index') }}" method="GET">
-    @foreach ($classes as $class)
-        <li class="flex items-center">
-            <input 
-                id="class-{{ $class->id }}" 
-                type="radio" 
-                name="id" 
-                value="{{ $class->id }}" 
-                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                {{ request('id') == $class->id ? 'checked' : '' }}
-            />
-            <label for="class-{{ $class->id }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                {{ $class->nama_kelas }}
-            </label>
-        </li>
-    @endforeach
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <?php
+    $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
+    ?>
+    <div class="px-4 pt-6">
+        <div
+            class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+            <!-- Card header -->
+            <div class="items-center justify-between lg:flex">
+                <div class="mb-4 lg:mb-0">
+                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Jadwal Hari Ini</h3>
+                    <span class="text-base font-normal text-gray-500 dark:text-gray-400">Kelas :
+                        {{ $selectedClass->nama_kelas }}</span>
+                </div>
+                <div class="items-center sm:flex">
+                    <div class="flex items-center">
+                        <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+                            class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                            type="button">
+                            Filter Kelas
+                            <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="dropdown" class="z-10 hidden w-56 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
+                            <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
+                                Kelas
+                            </h6>
+                            <form action="{{ route('index') }}" method="GET">
+                                @foreach ($classes as $class)
+                                    <li class="flex items-center">
+                                        <input id="class-{{ $class->id }}" type="radio" name="id"
+                                            value="{{ $class->id }}"
+                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                            {{ request('id') == $class->id ? 'checked' : '' }} />
+                                        <label for="class-{{ $class->id }}"
+                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                            {{ $class->nama_kelas }}
+                                        </label>
+                                    </li>
+                                @endforeach
 
-      <button type="submit" class="w-fit py-2.5 px-4 text-sm font-medium text-center mt-5 text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-          Pilih Kelas
-      </button>
-</form>
+                                <button type="submit"
+                                    class="w-fit py-2.5 px-4 text-sm font-medium text-center mt-5 text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                                    Pilih Kelas
+                                </button>
+                            </form>
 
-{{--            
+                            {{--            
               <li class="flex items-center">
                 <input id="fitbit" type="checkbox" value="" checked class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
 
@@ -74,11 +75,11 @@ $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
                   In review (97)
                 </label>
               </li> --}}
-            </ul>
-          </div>
-        </div>
-        {{-- datepicker --}}
-        {{-- <div date-rangepicker class="flex items-center space-x-4">
+                            </ul>
+                        </div>
+                    </div>
+                    {{-- datepicker --}}
+                    {{-- <div date-rangepicker class="flex items-center space-x-4">
           <div class="relative">
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -98,74 +99,86 @@ $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
             <input name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="To">
           </div>
         </div> --}}
-      </div>
-    </div>
-    <!-- Table -->
-    <div class="flex flex-col mt-6">
-      <div class="overflow-x-auto rounded-lg">
-        <div class="inline-block min-w-full align-middle">
-          <div class="overflow-hidden shadow sm:rounded-lg">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
-              <thead class="bg-gray-50 dark:bg-gray-700">
-                <tr>
-                  <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                    No
-                  </th>
-                  <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                    Nama Pelajaran
-                  </th>
-                  <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                    Ruangan
-                  </th>
-                  <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                    Guru Yang Mengajar
-                  </th>
-                  <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                    Jam Mulai
-                  </th>
-                  <th scope="col" class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                    Jam Selesai 
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="bg-white dark:bg-gray-800">
-                @foreach ($jadwalNow as $jadwal )
-                <tr class="bg-gray-50 dark:bg-gray-700">
-                  <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                   <span class="font-semibold">{{ $id++ }}</span>
-                  </td>
-                  <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ $jadwal->pelajaran->nama_pelajaran }}
-                  </td>
-                  <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ $jadwal->ruang->nama_ruang }}
-                  </td>
-                  <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                    {{ $jadwal->guru->user->name }}
-                  </td>
-                  <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ substr($jadwal->jam_mulai,0,5)}}
-                  </td>
-                  <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ substr($jadwal->jam_selesai,0,5)}}
-                  </td>
-                </tr>
-                @endforeach
-              
-              </tbody>
+                </div>
             </div>
-            </table>
-        
-          </div>
+            <!-- Table -->
+            <div class="flex flex-col mt-6">
+                <div class="overflow-x-auto rounded-lg">
+                    <div class="inline-block min-w-full align-middle">
+                        <div class="overflow-hidden shadow sm:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                                <thead class="bg-gray-50 dark:bg-gray-700">
+                                    <tr>
+                                        <th scope="col"
+                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                            No
+                                        </th>
+                                        <th scope="col"
+                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                            Nama Pelajaran
+                                        </th>
+                                        <th scope="col"
+                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                            Ruangan
+                                        </th>
+                                        <th scope="col"
+                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                            Guru Yang Mengajar
+                                        </th>
+                                        <th scope="col"
+                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                            Jam Mulai
+                                        </th>
+                                        <th scope="col"
+                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                            Jam Selesai
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white dark:bg-gray-800">
+                                    @foreach ($jadwalNow as $jadwal)
+                                        <tr class="bg-gray-50 dark:bg-gray-700">
+                                            <td
+                                                class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
+                                                <span class="font-semibold">{{ $id++ }}</span>
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $jadwal->pelajaran->nama_pelajaran }}
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $jadwal->ruang->nama_ruang }}
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                {{ $jadwal->guru->user->name }}
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ substr($jadwal->jam_mulai, 0, 5) }}
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ substr($jadwal->jam_selesai, 0, 5) }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                        </div>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="bg-white border-t p-6 border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-      <div class="flex justify-center">
-          {{ $jadwalNow->appends(['id'=>$selectedClass->id])->links()}}
-      </div>
-    <!-- Card Footer -->
-    {{-- <div class="flex items-center justify-between pt-3 sm:pt-6">
+        <div class="bg-white border-t p-6 border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex justify-center">
+                {{ $jadwalNow->appends(['id' => $selectedClass->id])->links() }}
+            </div>
+            <!-- Card Footer -->
+            {{-- <div class="flex items-center justify-between pt-3 sm:pt-6">
       <div>
         <button class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 rounded-lg hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" type="button" data-dropdown-toggle="transactions-dropdown">Last 7 days <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
         <!-- Dropdown menu -->
@@ -204,152 +217,184 @@ $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
         </a>
       </div>
     </div> --}}
-  </div>
-    <div class="grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">
+        </div>
+        <div class="grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">
 
-      <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+            <div
+                class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
 
-        <div class="items-center justify-between mb-4 border-b border-gray-200 dark:border-gray-700">
-          <div class="mb-4">
-            <h3 class="flex items-center mb-4 text-lg font-semibold text-gray-900 dark:text-white">Laporan Grafik Hari Ini</h3>
-          </div>
-          <ul class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent2" role="tablist">
-            <li class="w-full">
-                <button id="faq-tab2" data-tabs-target="#faq2" type="button" role="tab" aria-controls="faq" aria-selected="true" class="inline-block w-full p-4 rounded-tl-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Pelajaran Hari Ini</button>
-            </li>
-            <li class="w-full">
-                <button id="about-tab2" data-tabs-target="#about2" type="button" role="tab" aria-controls="about" aria-selected="false" class="inline-block w-full p-4 rounded-tr-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Guru Yang Mengajar Hari Ini</button>
-            </li>
-        </ul>
-        </div>
-        <!-- Card Footer -->
-        <div class="fullWidthTabContent2 flex items-center justify-between pt-4 lg:justify-evenly sm:pt-6">
-          <div class="flex items-center justify-between lg:justify-evenly" id="faq2" role="tabpanel" aria-labelledby="faq-tab2">   
-            <div class="w-full">
-              <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Total Pelajaran yang dipelajari</h3>
-              <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">{{$jadwalHariIni->count() }}</span>
-            </div>
-            <div class="w-full" id="pelajaran-chart"></div>
-          </div>
-          <div class="flex items-center justify-between lg:justify-evenly pt-4  sm:pt-6" id="about2" role="tabpanel" aria-labelledby="about-tab2">
-            <div class="w-full">
-              <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Total Guru yang mengajari</h3>
-              <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">{{$jadwalHariIni->pluck('guru.user.name')->unique()->count() }}</span>
-            </div>
-            <div class="w-full" id="guru-chart"></div>
-          </div>
-        </div>
-      
-      </div>
-      <!--Tabs widget -->
-      <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-        <h3 class="flex items-center mb-4 text-lg font-semibold text-gray-900 dark:text-white">Statistik Hari Ini 
-        </h3>
-        <div class="sm:hidden">
-            <label for="tabs" class="sr-only">Select tab</label>
-            <select id="tabs" class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                <option>Statistics</option>
-                <option>Services</option>
-                <option>FAQ</option>
-            </select>
-        </div>
-        <ul class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
-            <li class="w-full">
-                <button id="faq-tab" data-tabs-target="#faq" type="button" role="tab" aria-controls="faq" aria-selected="true" class="inline-block w-full p-4 rounded-tl-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Pelajaran Hari Ini</button>
-            </li>
-            <li class="w-full">
-                <button id="about-tab" data-tabs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="false" class="inline-block w-full p-4 rounded-tr-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Guru Yang Mengajar Hari Ini</button>
-            </li>
-        </ul>
- 
-        <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
-          <div class="hidden pt-4" id="faq" role="tabpanel" aria-labelledby="faq-tab">
-            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-              @php
-              // Get unique class names for the current pelajaran_id
-              $groupedJadwal = $jadwalHariIni->groupBy('pelajaran_id');
-              @endphp
-              @foreach ($groupedJadwal as $pelajaranId => $jadwalGroup)
-              <li class="py-3 sm:py-4">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center min-w-0">
-                    <div class="flex items-center justify-center w-12 h-12 shadow-top-only rounded-full">
-                      <p class="font-medium text-gray-900 truncate dark:text-white">
-                          {{                             
-                              substr($jadwalGroup->first()->pelajaran->nama_pelajaran,0,1)
-                          }}
-                      </p>
-                  </div>
-                    <div class="ml-3">
-                      <p class="font-medium text-gray-900 truncate dark:text-white">
-                        {{$jadwalGroup->first()->pelajaran->nama_pelajaran }}
-                      </p>
-                      <div class="flex items-center justify-start flex-1 text-sm text-start text-green-500 dark:text-green-400">
-                        <span class="text-gray-500">(
-                          @php
-                          $uniqueKelas = $jadwalHariIni->where('pelajaran_id', $pelajaranId)
-                              ->pluck('kelas.nama_kelas')
-                              ->unique();
-                      @endphp
-                      @foreach ($uniqueKelas as $kelasNama)
-                          {{ $kelasNama }}{{ !$loop->last ? ', ' : '' }}
-                      @endforeach
-                          )</span>
-                      </div>
+                <div class="items-center justify-between mb-4 border-b border-gray-200 dark:border-gray-700">
+                    <div class="mb-4">
+                        <h3 class="flex items-center mb-4 text-lg font-semibold text-gray-900 dark:text-white">Laporan
+                            Grafik Hari Ini</h3>
                     </div>
-                  </div>
-                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                    {{ $jadwalHariIni->where('pelajaran_id', $pelajaranId)->count() }}
-                  </div>
+                    <ul class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400"
+                        id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent2" role="tablist">
+                        <li class="w-full">
+                            <button id="faq-tab2" data-tabs-target="#faq2" type="button" role="tab"
+                                aria-controls="faq" aria-selected="true"
+                                class="inline-block w-full p-4 rounded-tl-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Pelajaran
+                                Hari Ini</button>
+                        </li>
+                        <li class="w-full">
+                            <button id="about-tab2" data-tabs-target="#about2" type="button" role="tab"
+                                aria-controls="about" aria-selected="false"
+                                class="inline-block w-full p-4 rounded-tr-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Guru
+                                Yang Mengajar Hari Ini</button>
+                        </li>
+                    </ul>
                 </div>
-              </li>
-              @endforeach     
-          </div>
-          <div class="hidden pt-4" id="about" role="tabpanel" aria-labelledby="about-tab">
-            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-              @php
-              // Get unique class names for the current guru_id
-              $groupedJadwalGuruID = $jadwalHariIni->groupBy('guru_id');
-          @endphp
-              @foreach ($groupedJadwalGuruID as $guruId => $jadwalGroupGuru)
-              <li class="py-3 sm:py-4">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center min-w-0">
-                    <div class="flex items-center justify-center w-12 h-12 shadow-top-only rounded-full">
-                      <p class="font-medium text-gray-900 truncate dark:text-white">
-                          {{ substr($jadwalGroupGuru->first()->guru->user->name,4,1)}}
-                      </p>
-                  </div>
-                    <div class="ml-3">
-                      <p class="font-medium text-gray-900 truncate dark:text-white">
-                        {{$jadwalGroupGuru->first()->guru->user->name}}
-                      </p>
-                      <div class="flex items-center justify-start flex-1 text-sm text-start text-green-500 dark:text-green-400">
-                        <span class="text-gray-500">(
-                          @php
-                          $uniqueKelas = $jadwalHariIni->where('guru_id', $guruId)
-                              ->pluck('kelas.nama_kelas')
-                              ->unique();
-                      @endphp
-                      @foreach ($uniqueKelas as $kelasNama)
-                          {{ $kelasNama }}{{ !$loop->last ? ', ' : '' }}
-                      @endforeach
-                          )</span>
-                      </div>
+                <!-- Card Footer -->
+                <div class="fullWidthTabContent2 flex items-center justify-between pt-4 lg:justify-evenly sm:pt-6">
+                    <div class="flex items-center justify-between lg:justify-evenly" id="faq2" role="tabpanel"
+                        aria-labelledby="faq-tab2">
+                        <div class="w-full">
+                            <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Total Pelajaran yang
+                                dipelajari</h3>
+                            <span
+                                class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">{{ $jadwalHariIni->count() }}</span>
+                        </div>
+                        <div class="w-full" id="pelajaran-chart"></div>
                     </div>
-                  </div>
-                  <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                    {{ $jadwalHariIni->where('guru_id', $guruId)->count() }}
-                  </div>
+                    <div class="flex items-center justify-between lg:justify-evenly pt-4  sm:pt-6" id="about2"
+                        role="tabpanel" aria-labelledby="about-tab2">
+                        <div class="w-full">
+                            <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Total Guru yang mengajari
+                            </h3>
+                            <span
+                                class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">{{ $jadwalHariIni->pluck('guru.user.name')->unique()->count() }}</span>
+                        </div>
+                        <div class="w-full" id="guru-chart"></div>
+                    </div>
                 </div>
-              </li>
-              @endforeach    
-            </ul>
-          </div>
-      </div>
-      </div>
-    </div>
-    {{-- <div class="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
+
+            </div>
+            <!--Tabs widget -->
+            <div
+                class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+                <h3 class="flex items-center mb-4 text-lg font-semibold text-gray-900 dark:text-white">Statistik Hari Ini
+                </h3>
+                <div class="sm:hidden">
+                    <label for="tabs" class="sr-only">Select tab</label>
+                    <select id="tabs"
+                        class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <option>Statistics</option>
+                        <option>Services</option>
+                        <option>FAQ</option>
+                    </select>
+                </div>
+                <ul class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400"
+                    id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
+                    <li class="w-full">
+                        <button id="faq-tab" data-tabs-target="#faq" type="button" role="tab"
+                            aria-controls="faq" aria-selected="true"
+                            class="inline-block w-full p-4 rounded-tl-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Pelajaran
+                            Hari Ini</button>
+                    </li>
+                    <li class="w-full">
+                        <button id="about-tab" data-tabs-target="#about" type="button" role="tab"
+                            aria-controls="about" aria-selected="false"
+                            class="inline-block w-full p-4 rounded-tr-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Guru
+                            Yang Mengajar Hari Ini</button>
+                    </li>
+                </ul>
+
+                <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
+                    <div class="hidden pt-4" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                            @php
+                                // Get unique class names for the current pelajaran_id
+                                $groupedJadwal = $jadwalHariIni->groupBy('pelajaran_id');
+                            @endphp
+                            @foreach ($groupedJadwal as $pelajaranId => $jadwalGroup)
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center min-w-0">
+                                            <div
+                                                class="flex items-center justify-center w-12 h-12 shadow-top-only rounded-full">
+                                                <p class="font-medium text-gray-900 truncate dark:text-white">
+                                                    {{ substr($jadwalGroup->first()->pelajaran->nama_pelajaran, 0, 1) }}
+                                                </p>
+                                            </div>
+                                            <div class="ml-3">
+                                                <p class="font-medium text-gray-900 truncate dark:text-white">
+                                                    {{ $jadwalGroup->first()->pelajaran->nama_pelajaran }}
+                                                </p>
+                                                <div
+                                                    class="flex items-center justify-start flex-1 text-sm text-start text-green-500 dark:text-green-400">
+                                                    <span class="text-gray-500">(
+                                                        @php
+                                                            $uniqueKelas = $jadwalHariIni
+                                                                ->where('pelajaran_id', $pelajaranId)
+                                                                ->pluck('kelas.nama_kelas')
+                                                                ->unique();
+                                                        @endphp
+                                                        @foreach ($uniqueKelas as $kelasNama)
+                                                            {{ $kelasNama }}{{ !$loop->last ? ', ' : '' }}
+                                                        @endforeach
+                                                        )
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            {{ $jadwalHariIni->where('pelajaran_id', $pelajaranId)->count() }}
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                    </div>
+                    <div class="hidden pt-4" id="about" role="tabpanel" aria-labelledby="about-tab">
+                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                            @php
+                                // Get unique class names for the current guru_id
+                                $groupedJadwalGuruID = $jadwalHariIni->groupBy('guru_id');
+                            @endphp
+                            @foreach ($groupedJadwalGuruID as $guruId => $jadwalGroupGuru)
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center min-w-0">
+                                            <div
+                                                class="flex items-center justify-center w-12 h-12 shadow-top-only rounded-full">
+                                                <p class="font-medium text-gray-900 truncate dark:text-white">
+                                                    {{ substr($jadwalGroupGuru->first()->guru->user->name, 4, 1) }}
+                                                </p>
+                                            </div>
+                                            <div class="ml-3">
+                                                <p class="font-medium text-gray-900 truncate dark:text-white">
+                                                    {{ $jadwalGroupGuru->first()->guru->user->name }}
+                                                </p>
+                                                <div
+                                                    class="flex items-center justify-start flex-1 text-sm text-start text-green-500 dark:text-green-400">
+                                                    <span class="text-gray-500">(
+                                                        @php
+                                                            $uniqueKelas = $jadwalHariIni
+                                                                ->where('guru_id', $guruId)
+                                                                ->pluck('kelas.nama_kelas')
+                                                                ->unique();
+                                                        @endphp
+                                                        @foreach ($uniqueKelas as $kelasNama)
+                                                            {{ $kelasNama }}{{ !$loop->last ? ', ' : '' }}
+                                                        @endforeach
+                                                        )
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            {{ $jadwalHariIni->where('guru_id', $guruId)->count() }}
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- <div class="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
       <div class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="w-full">
           <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">New products</h3>
@@ -413,7 +458,7 @@ $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
         <div id="traffic-channels-chart" class="w-full"></div>
       </div>
     </div> --}}
-    {{-- <div class="grid grid-cols-1 my-4 xl:grid-cols-2 xl:gap-4"> 
+        {{-- <div class="grid grid-cols-1 my-4 xl:grid-cols-2 xl:gap-4"> 
       <!-- 201 - 524 -->
       <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-800 xl:mb-0">
         <div class="flex items-center justify-between mb-4">
@@ -742,7 +787,7 @@ $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
 
       <!-- Right Content -->
       {{-- 204 - 287 --}}
-      {{-- <div class="grid gap-4">
+        {{-- <div class="grid gap-4">
         <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
           <div class="items-center justify-between pb-4 border-b border-gray-200 sm:flex dark:border-gray-700">
             <div class="w-full mb-4 sm:mb-0">
@@ -826,11 +871,11 @@ $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
         <!-- 285 355 -->
       </div> 
     </div> --}}
-    <!-- 2 columns -->
-    <div class="grid grid-cols-1 my-4 xl:grid-cols-2 xl:gap-4">
-      <!-- Activity Card -->
-      {{-- 683 - 717 --}}
-      {{-- <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800 xl:mb-0">
+        <!-- 2 columns -->
+        <div class="grid grid-cols-1 my-4 xl:grid-cols-2 xl:gap-4">
+            <!-- Activity Card -->
+            {{-- 683 - 717 --}}
+            {{-- <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800 xl:mb-0">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Latest Activity</h3>
           <a href="#" class="inline-flex items-center p-2 text-sm font-medium rounded-lg text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
@@ -865,9 +910,9 @@ $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
           </li>
         </ol>
       </div> --}}
-      <!--Carousel widget --> 
-      {{-- 686 - 828 --}}
-      {{-- <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+            <!--Carousel widget -->
+            {{-- 686 - 828 --}}
+            {{-- <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div id="carousel" class="relative" data-carousel="">
           <div class="relative mx-auto overflow-hidden h-[36rem] lg:h-[24rem]">
               <div class="hidden duration-700 ease-in-out bg-white dark:bg-gray-800" data-carousel-item>
@@ -1010,27 +1055,34 @@ $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
           </div>
         </div>
       </div> --}}
-      
+
+        </div>
+
     </div>
-    
-</div>
 @endsection
 
 <script>
+    var pelajaranData = {!! json_encode(
+        array_values(
+            $jadwalHariIni->pluck('pelajaran.nama_pelajaran')->unique()->map(function ($pelajaran) use ($jadwalHariIni) {
+                    return [
+                        'pelajaran' => $pelajaran,
+                        'countPelajaran' => $jadwalHariIni->where('pelajaran.nama_pelajaran', $pelajaran)->count(),
+                    ];
+                })->toArray(),
+        ),
+    ) !!}
 
- var pelajaranData = {!! json_encode(array_values($jadwalHariIni->pluck('pelajaran.nama_pelajaran')->unique()->map(function($pelajaran) use ($jadwalHariIni) {
-        return [
-            'pelajaran' => $pelajaran,
-            'countPelajaran' => $jadwalHariIni->where('pelajaran.nama_pelajaran', $pelajaran)->count(),
-        ];
-    })->toArray())) !!}
-
-    var guruData = {!! json_encode(array_values($jadwalHariIni->pluck('guru.user.name')->unique()->map(function($guru) use ($jadwalHariIni) {
-        return [
-            'guru' => $guru,
-            'countGuru' => $jadwalHariIni->where('guru.user.name', $guru)->count(),
-        ];
-    })->toArray())) !!}
+    var guruData = {!! json_encode(
+        array_values(
+            $jadwalHariIni->pluck('guru.user.name')->unique()->map(function ($guru) use ($jadwalHariIni) {
+                    return [
+                        'guru' => $guru,
+                        'countGuru' => $jadwalHariIni->where('guru.user.name', $guru)->count(),
+                    ];
+                })->toArray(),
+        ),
+    ) !!}
 
     const jadwalPelajaranDataCount = pelajaranData.map(function(item) {
         return {
@@ -1045,7 +1097,7 @@ $id = 1 + ($jadwalNow->currentPage() - 1) * 8;
             countGuru: item.countGuru,
         };
     });
-  
+
     // const jadwalPelajaranData = pelajaran.map(function(item) {
     //     return {
     //         pelajaran: item,

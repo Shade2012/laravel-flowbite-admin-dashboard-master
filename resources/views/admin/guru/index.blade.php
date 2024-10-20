@@ -112,7 +112,7 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                    Gambar
+                                    Foto
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
@@ -139,9 +139,9 @@
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $id++ }}</td>
                                     <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                        <img class="w-10 h-10 rounded-full"
-                                            src="{{ asset('storage/' . ($guru->user->image ?? 'images/profile.jpg')) }}"
-                                            alt="User Image">
+                                        <img class="w-14 h-14 rounded-full"
+                                            src="{{ is_string($guru->user->image) && !empty($guru->user->image) ? url($guru->user->image) : asset('storage/images/profile.jpg') }}"
+                                            alt="Foto Guru">
                                     </td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $guru->user->name ?? 'N/A' }}</td>

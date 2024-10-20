@@ -141,9 +141,9 @@
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $class->nama_kelas ?? 'N/A' }}</td>
                                     <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                        <img class="w-10 h-10 rounded-full"
-                                            src="{{ asset('storage/' . ($class->waliKelas->image ?? 'images/profile.jpg')) }}"
-                                            alt="Wali Kelas Image">
+                                        <img class="w-14 h-14 rounded-full"
+                                            src="{{ is_string($class->waliKelas->image) && !empty($class->waliKelas->image) ? url($class->waliKelas->image) : asset('storage/images/profile.jpg') }}"
+                                            alt="Foto Wali Kelas">
                                     </td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $class->waliKelas->name ?? 'N/A' }}</td>

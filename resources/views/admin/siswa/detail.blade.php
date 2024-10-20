@@ -25,26 +25,26 @@
                     <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-3">
                             <label for="name"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar</label>
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto</label>
                             <div>
                                 <img id="image-preview"
-                                    src="{{ asset('storage/' . ($student->user->image ?? 'images/profile.jpg')) }}"
-                                    alt="User Image" class="w-32 h-32 rounded-full object-cover">
+                                    src="{{ is_string($student->user->image) && !empty($student->user->image) ? url($student->user->image) : asset('storage/images/profile.jpg') }}"
+                                    alt="Foto Siswa" class="w-32 h-32 rounded-full object-cover">
                             </div>
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                            <input disabled="true" type="text" value="{{ old('name', $student->user->name ?? 'N/A') }}" name="name"
-                                id="name"
+                            <input disabled="true" type="text"
+                                value="{{ old('name', $student->user->name ?? 'N/A') }}" name="name" id="name"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Your Name">
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="email"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                            <input disabled="true" type="email" value="{{ old('email', $student->user->email ?? 'N/A') }}"
-                                name="email" id="email"
+                            <input disabled="true" type="email"
+                                value="{{ old('email', $student->user->email ?? 'N/A') }}" name="email" id="email"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="example@gmail.com">
                         </div>
@@ -52,14 +52,16 @@
                             <label for="kelas"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelas</label>
                             <input disabled="true" type="text"
-                                value="{{ old('kelas', $student->kelas->nama_kelas ?? 'N/A') }}" name="kelas" id="kelas"
+                                value="{{ old('kelas', $student->kelas->nama_kelas ?? 'N/A') }}" name="kelas"
+                                id="kelas"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="10 ... 2">
                         </div>
                         <div class="col-span-6 sm:col-span-3">
                             <label for="wali_kelas"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wali Kelas</label>
-                            <input disabled="true" type="text" value="{{ old('waliKelas', $student->kelas->waliKelas->name ?? 'N/A') }}"
+                            <input disabled="true" type="text"
+                                value="{{ old('waliKelas', $student->kelas->waliKelas->name ?? 'N/A') }}"
                                 name="wali_kelas" id="wali_kelas"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Your Wali Kelas">

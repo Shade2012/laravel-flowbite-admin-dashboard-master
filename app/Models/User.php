@@ -24,12 +24,6 @@ class User extends Authenticatable
     {
         return $this->hasOne(Guru::class, 'user_id');
     }
-    // protected function image(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($image) => url($image),
-    //     );
-    // }
 
     public function siswa(): HasOne
     {

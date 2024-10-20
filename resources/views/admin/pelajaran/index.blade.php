@@ -144,8 +144,8 @@
                                         {{ $lesson->nama_pelajaran ?? 'N/A' }}</td>
                                     <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
                                         <img class="w-10 h-10 rounded-full"
-                                            src="{{ asset('storage/' . ($lesson->guru->first()->user->image ?? 'images/profile.jpg')) }}"
-                                            alt="User Image">
+                                    src="{{ is_string($lesson->guru->first()->user->image ?? '') && !empty($lesson->guru->first()->user->image ?? '') ? url($lesson->guru->first()->user->image) : asset('storage/images/profile.jpg') }}"
+                                            alt="Foto Guru">
                                     </td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $lesson->guru->first()->user->name ?? 'N/A' }}</td>
