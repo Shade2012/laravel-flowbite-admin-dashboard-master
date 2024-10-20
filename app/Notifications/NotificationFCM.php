@@ -25,10 +25,9 @@ class NotificationFCM extends Notification
 
     public function toFcm($notifiable): FcmMessage
     {
-        return FcmMessage::create()
-            ->setNotification([
-                'title' => $this->title,
-                'body' => $this->body,
-            ]);
+        return (new FcmMessage(notification: new FcmNotification(
+            title: $this->title,
+            body: $this->body,
+        )));
     }
 }
