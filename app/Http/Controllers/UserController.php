@@ -59,15 +59,16 @@ class UserController extends Controller
             return redirect()->back()->with('Gagal', $validator->errors()->first());
         } else {
             $image = null;
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $imageName = time().'.'.$image->extension();
+                $imageName = time() . '.' . $image->extension();
                 $image->move(public_path('images'), $imageName);
                 // $image = $request->file('image')->store('images', 'public');
             }
 
             $user = User::create([
-                'image' => $imageName,
+                'image' => 'images/' . $imageName,
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
@@ -104,41 +105,37 @@ class UserController extends Controller
             $user = User::find($id);
             if ($user) {
                 if ($request->hasFile('image')) {
-                    // Check if the user already has an image
                     if ($user->image) {
-                        $existingImagePath = public_path($user->image); // Get the full path of the existing image
+                        $existingImagePath = public_path($user->image);
                         if (file_exists($existingImagePath)) {
-                             return unlink($existingImagePath);
-                            }
-                
-                    // Upload the new image
-                    $image = $request->file('image');
-                    $imageName = time() . '.' . $image->extension(); // Create a unique name for the new image
-                    $image->move(public_path('images'), $imageName); // Move the image to the public/images directory
-                    $user->image = 'images/' . $imageName; // Update the user's image path
+                            return unlink($existingImagePath);
+                        }
+
+                        $image = $request->file('image');
+                        $imageName = time() . '.' . $image->extension();
+                        $image->move(public_path('images'), $imageName);
+                        $user->image = 'images/' . $imageName;
+                    }
+
+                    if ($request->filled('password')) {
+                        $user->password = Hash::make($request->password);
+                    }
+
+                    $user->fill($request->only([
+                        'name',
+                        'email',
+                        'role',
+                    ]));
+
+                    $user->save();
+
+                    return redirect()->route('admin.user.index')->with('Berhasil', 'Siswa berhasil diperbarui.');
+                } else {
+                    return redirect()->back()->with('Gagal', 'Siswa gagal diperbarui, silakan coba lagi.');
                 }
-                
-                
-
-                if ($request->filled('password')) {
-                    $user->password = Hash::make($request->password);
-                }
-
-                $user->fill($request->only([
-                    'name',
-                    'email',
-                    'role',
-                ]));
-
-                $user->save();
-
-                return redirect()->route('admin.user.index')->with('Berhasil', 'Siswa berhasil diperbarui.');
-            } else {
-                return redirect()->back()->with('Gagal', 'Siswa gagal diperbarui, silakan coba lagi.');
             }
         }
     }
-}
 
     public function delete()
     {
