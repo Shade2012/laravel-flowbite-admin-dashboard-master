@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -12,7 +13,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            Log::info('Schedule running: ' . now());
+            Log::info('Schedule Notification running: ' . now());
+            app(\App\Http\Controllers\NotificationController::class)->sendNotificationShecheduler();
+            Log::info('Schedule Notification stop: ' . now());
+            Log::info('Schedule Stop: ' . now());
+        })->everyMinute();
     }
 
     /**
