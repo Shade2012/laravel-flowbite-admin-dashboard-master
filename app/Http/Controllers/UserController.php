@@ -111,28 +111,28 @@ class UserController extends Controller
                             return unlink($existingImagePath);
                         }
 
+                        // Upload the new image
                         $image = $request->file('image');
                         $imageName = time() . '.' . $image->extension();
                         $image->move(public_path('images'), $imageName);
                         $user->image = 'images/' . $imageName;
                     }
-
-                    if ($request->filled('password')) {
-                        $user->password = Hash::make($request->password);
-                    }
-
-                    $user->fill($request->only([
-                        'name',
-                        'email',
-                        'role',
-                    ]));
-
-                    $user->save();
-
-                    return redirect()->route('admin.user.index')->with('Berhasil', 'Siswa berhasil diperbarui.');
-                } else {
-                    return redirect()->back()->with('Gagal', 'Siswa gagal diperbarui, silakan coba lagi.');
+                } 
+                if ($request->filled('password')) {
+                    $user->password = Hash::make($request->password);
                 }
+                    $user->name = $request->name;
+         
+                    $user->email = $request->email;
+                
+                    $user->role = $request->role;
+             
+                $user->save();
+
+                return redirect()->route('admin.user.index')->with('Berhasil', 'Siswa berhasil diperbarui.');
+               
+            } else {
+                return redirect()->back()->with('Gagal', 'Siswa gagal diperbarui, silakan coba lagi.');
             }
         }
     }
