@@ -54,16 +54,15 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
             'user' => [
                 'id' => $user->id,
-                'image' => $user->image ? url($user->image) : null, // Set to null if no image
+                'image' => $user->image ? url($user->image) : null,
                 'name' => $user->name,
                 'email' => $user->email,
-                'fcm_token' => $user->fcm_token, // Include only if it's safe to return
+                'fcm_token' => $user->fcm_token,
                 'role' => $user->role,
                 'created_at' => $user->created_at->toIso8601String(),
                 'updated_at' => $user->updated_at->toIso8601String(),
             ],
         ], 200);
-        
     }
 
     public function loginGoogle(Request $request)
@@ -109,10 +108,10 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
             'user' => [
                 'id' => $user->id,
-                'image' => $user->image ? url($user->image) : null, // Set to null if no image
+                'image' => $user->image ? url($user->image) : null,
                 'name' => $user->name,
                 'email' => $user->email,
-                'fcm_token' => $user->fcm_token, // Include only if it's safe to return
+                'fcm_token' => $user->fcm_token,
                 'role' => $user->role,
                 'created_at' => $user->created_at->toIso8601String(),
                 'updated_at' => $user->updated_at->toIso8601String(),
@@ -219,10 +218,10 @@ class AuthController extends Controller
                     'image' => url($user->image),
                     'name' => $user->name,
                     'email' => $user->email,
-                    'fcm_token' => $user->fcm_token, // Include only if it's safe to return
+                    'fcm_token' => $user->fcm_token,
                     'role' => $user->role,
-                    'created_at' => $user->created_at->toIso8601String(), // Format the date as needed
-                    'updated_at' => $user->updated_at->toIso8601String(), // Format the date as needed
+                    'created_at' => $user->created_at->toIso8601String(),
+                    'updated_at' => $user->updated_at->toIso8601String(),
                 ],
             ], 200);
         } else {

@@ -173,19 +173,19 @@
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $id++ }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $jadwal->kelas->nama_kelas }}</td>
+                                        {{ $jadwal->kelas->nama_kelas ?? 'N/A' }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $jadwal->hari }}</td>
+                                        {{ $jadwal->hari ?? 'N/A' }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $jadwal->jam_mulai }}</td>
+                                        {{ $jadwal->jam_mulai ?? 'N/A' }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $jadwal->jam_selesai }}</td>
+                                        {{ $jadwal->jam_selesai ?? 'N/A' }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $jadwal->pelajaran->nama_pelajaran }}</td>
+                                        {{ $jadwal->pelajaran->nama_pelajaran ?? 'N/A' }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $jadwal->guru->user->name }}</td>
+                                        {{ $jadwal->guru->user->name ?? 'N/A' }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $jadwal->ruang->nama_ruang }}</td>
+                                        {{ $jadwal->ruang->nama_ruang ?? 'N/A' }}</td>
                                     <td class="p-4 space-x-2 whitespace-nowrap">
                                         <button type="button"
                                             data-modal-target="detail-jadwal_pelajaran-modal{{ $jadwal->id }}"

@@ -24,6 +24,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login/google', [AuthController::class, 'loginGoogle']);
 Route::post('/send-otp', [OTPController::class, 'sendOtp'])->name('sendOtp');
 Route::post('/send-notification', [NotificationController::class, 'sendNotification']);
+Route::get('/send-notification-auto', [NotificationController::class, 'sendNotificationScheduler']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/verify-otp', [OTPController::class, 'verifyOtp']);

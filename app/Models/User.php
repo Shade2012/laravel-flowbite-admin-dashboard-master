@@ -24,15 +24,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(Guru::class, 'user_id');
     }
-    // protected function image(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($image) => url($image),
-    //     );
-    // }
 
     public function siswa(): HasOne
     {
         return $this->hasOne(Siswa::class, 'user_id');
+    }
+
+    /**
+     * Specifies the user's FCM token
+     *
+     * @return string|array
+     */
+    public function routeNotificationForFcm()
+    {
+        return $this->fcm_token;
     }
 }

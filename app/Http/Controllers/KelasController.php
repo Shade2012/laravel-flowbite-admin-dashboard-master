@@ -14,15 +14,17 @@ class KelasController extends Controller
         $searchTerm = $request->input('name');
 
         if ($searchTerm) {
-            $kelas = Kelas::with('waliKelas')
+            $kelas = Kelas::with('waliKelas.kelas', 'waliKelas.guru', 'waliKelas.siswa', 'siswa.user', 'siswa.kelas', 'jadwalPelajaran.kelas', 'jadwalPelajaran.pelajaran', 'jadwalPelajaran.guru', 'jadwalPelajaran.ruang')
                 ->where('nama_kelas', 'LIKE', '%' . $searchTerm . '%')
                 ->paginate(10);
         } else {
-            $kelas = Kelas::with('waliKelas')
+            $kelas = Kelas::with('waliKelas.kelas', 'waliKelas.guru', 'waliKelas.siswa', 'siswa.user', 'siswa.kelas', 'jadwalPelajaran.kelas', 'jadwalPelajaran.pelajaran', 'jadwalPelajaran.guru', 'jadwalPelajaran.ruang')
                 ->paginate(10);
         }
 
-        $users = User::with('Kelas.waliKelas', 'guru.user', 'guru.pelajaran', 'siswa.user', 'siswa.kelas')->get();
+        $users = User::with('kelas.waliKelas', 'kelas.siswa', 'kelas.jadwalPelajaran', 'guru.user', 'guru.pelajaran', 'siswa.user', 'siswa.kelas')
+            ->where('role', 'guru')
+            ->get();
 
         return view('admin.kelas.index', [
             'title' => 'All Kelas',
@@ -41,7 +43,7 @@ class KelasController extends Controller
     public function create()
     {
         return view('admin.kelas.create', [
-            "title" => "Tambah Kelas Baru",
+            "title" => "Create Kelas",
         ]);
     }
 
@@ -53,17 +55,18 @@ class KelasController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('Gagal', 'Gagal menambahkan kelas. Pastikan semua inputan dimasukan dengan benar.');
+            return redirect()->back()->with('Gagal', $validator->errors()->first());
         } else {
+
             $kelas = Kelas::create([
                 'nama_kelas' => $request->nama_kelas,
-                'wali_kelas_id' => $request->wali_kelas_id
+                'wali_kelas_id' => $request->wali_kelas_id,
             ]);
 
             if ($kelas) {
                 return redirect()->route('admin.kelas.index')->with('Berhasil', 'Kelas berhasil ditambahkan.');
             } else {
-                return redirect()->back()->with('Gagal', 'Gagal menambahkan kelas, silahkan coba lagi.');
+                return redirect()->back()->with('Gagal', 'Kelas gagal ditambahkan, silakan coba lagi.');
             }
         }
     }
@@ -77,44 +80,46 @@ class KelasController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Define validation rules for nama_kelas and wali_kelas_id
         $validator = Validator::make($request->all(), [
-            'nama_kelas' => 'required|string|max:255', // Example validation rule
-            'wali_kelas_id' => 'required|integer', // Example validation rule
+            'nama_kelas' => 'nullable|string|max:255',
+            'wali_kelas_id' => 'nullable|integer|exists:users,id'
         ]);
 
-        // Check if validation fails
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        // Find the user by ID
-        $kelas = Kelas::find($id);
-        if ($kelas) {
-            $kelas->nama_kelas = $request->nama_kelas;
-            $kelas->wali_kelas_id = $request->wali_kelas_id;
-
-            // Save the user
-            $kelas->save();
-
-            return redirect()->route('admin.kelas.index')->with('Berhasil', 'User berhasil ditambahkan.');
+            return redirect()->back()->with('Gagal', $validator->errors()->first());
         } else {
-            return redirect()->back()->with('Gagal', 'User update gagal, silahkan coba lagi.');
+            $kelas = Kelas::find($id);
+            if ($kelas) {
+
+                $kelas->fill($request->only([
+                    'nama_kelas',
+                    'wali_kelas_id',
+                ]));
+
+                $kelas->save();
+
+                return redirect()->route('admin.kelas.index')->with('Berhasil', 'Kelas berhasil diperbarui.');
+            } else {
+                return redirect()->back()->with('Gagal', 'Kelas gagal diperbarui, silakan coba lagi.');
+            }
         }
     }
-
-
 
     public function delete()
     {
         return view('admin.kelas.delete', [
-            "title" => "Tambah Kelas Baru",
+            "title" => "Delete Kelas",
         ]);
     }
 
     public function destroy($id)
     {
-        Kelas::findOrFail($id)->delete();
-        return redirect()->route('admin.kelas.index')->with('success', 'Kelas berhasil dihapus.');
+        $kelas = Kelas::find($id)->delete();
+
+        if ($kelas) {
+            return redirect()->route('admin.kelas.index')->with('Berhasil', 'Kelas berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('Gagal', 'Kelas gagal dihapus, silakan coba lagi.');
+        }
     }
 }

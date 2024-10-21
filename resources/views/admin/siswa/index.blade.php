@@ -143,18 +143,18 @@
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $id++ }}</td>
                                     <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                        <img class="w-10 h-10 rounded-full"
-                                            src="{{ asset('storage/' . ($student->user->image ?? 'images/profile.jpg')) }}"
-                                            alt="User Image">
+                                        <img class="w-14 h-14 rounded-full"
+                                            src="{{ is_string($student->user->image) && !empty($student->user->image) ? url($student->user->image) : asset('storage/images/profile.jpg') }}"
+                                            alt="Foto Siswa">
                                     </td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $student->user->name }}</td>
+                                        {{ $student->user->name ?? 'N/A' }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $student->user->email }}</td>
+                                        {{ $student->user->email ?? 'N/A' }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $student->kelas->nama_kelas }}</td>
+                                        {{ $student->kelas->nama_kelas ?? 'N/A' }}</td>
                                     <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $student->kelas->waliKelas->name }}</td>
+                                        {{ $student->kelas->waliKelas->name ?? 'N/A' }}</td>
                                     <td class="p-4 space-x-2 whitespace-nowrap">
                                         <button type="button" data-modal-target="detail-siswa-modal{{ $student->id }}"
                                             data-modal-toggle="detail-siswa-modal{{ $student->id }}"

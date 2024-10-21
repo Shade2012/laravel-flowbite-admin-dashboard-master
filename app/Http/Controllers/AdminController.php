@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Kelas;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-    
+
     public function dashboard(Request $request)
     {
         $admin = Auth::user();
@@ -24,34 +25,35 @@ class AdminController extends Controller
             $selectedClass = Kelas::find($request->id);  // Get the selected class by ID
         }
         $jadwalNow = JadwalPelajaran::where([
-            ['kelas_id',$selectedClass->id],
-            ['hari', '=', $hari], 
-            ])->with(['kelas','pelajaran','ruang','guru.user'])->paginate(8);
-        $jadwalHariIni = JadwalPelajaran::where('hari','=',$hari)->with(['guru.user','pelajaran'])->get();
-        
+            ['kelas_id', $selectedClass->id],
+            ['hari', '=', $hari],
+        ])->with(['kelas', 'pelajaran', 'ruang', 'guru.user'])->paginate(8);
+        $jadwalHariIni = JadwalPelajaran::where('hari', '=', $hari)->with(['guru.user', 'pelajaran'])->get();
+
         return view('admin.index', [
             "title" => "Dashboard",
-            "classes"=> $kelas,
+            "classes" => $kelas,
             "selectedClass" => $selectedClass ? $selectedClass : 'None selected',
             "jadwalNow" => $jadwalNow,
-            "jadwalHariIni"=>$jadwalHariIni,
+            "jadwalHariIni" => $jadwalHariIni,
             "hari" => $hari,
-            "admin"=>$admin
+            "admin" => $admin
             // "pelajaran"=> $jadwalNow ? $jadwalNow->pelajaran->nama_pelajaran : 'No pelajaran found'
         ]);
     }
 
-    public function create(){
-        
+    public function create()
+    {
+
         $title = "Add Data";
         return view("dashboard.student.create", [
             "title" => $title,
             "kelas" => Kelas::all(),
-            
+
         ]);
-        
     }
-    public function changePassword(Request $request){
+    public function changePassword(Request $request)
+    {
         $adminLogin = Auth::user();
         $validator = Validator::make($request->all(), [
             'old_password' => 'required|string',
@@ -72,29 +74,30 @@ class AdminController extends Controller
             return redirect()->route('profile')->with('successPassword', 'Password berhasil diubah');
         }
     }
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $admin = Auth::user();
         $validateData = $request->validate([
             "name" => "required|max:255",
             "email" => "required|max:255"
         ]);
-        $existingName = User::where('name',$validateData['name'])->first();
-        $existingEmail = User::where('email',$validateData['email'])->first();
-        if($validateData['email'] == $admin->email && $validateData['name'] == $admin->name){
-    
+        $existingName = User::where('name', $validateData['name'])->first();
+        $existingEmail = User::where('email', $validateData['email'])->first();
+        if ($validateData['email'] == $admin->email && $validateData['name'] == $admin->name) {
+
             return redirect('/admin/profile')->with('success', 'Tidak Ada Perubahan');
         }
-        if($validateData['email'] != $admin->email){
-            if($existingEmail){
+        if ($validateData['email'] != $admin->email) {
+            if ($existingEmail) {
                 return back()->withInput()->with('errorProfile', 'Email sudah terdaftar');
             }
         }
-        if($validateData['name'] != $admin->name){
-            if($existingName){
+        if ($validateData['name'] != $admin->name) {
+            if ($existingName) {
                 return back()->withInput()->with('errorProfile', 'Nama sudah terdaftar');
             }
         }
-        
+
         $adminDetail = User::find($admin->id);
         $result = $adminDetail->update($validateData);
         if ($result) {
@@ -106,34 +109,34 @@ class AdminController extends Controller
     {
         $adminLogin = Auth::user();
         $admin = User::find($adminLogin->id);
-        
+
         // Validate image file
         $validateData = $request->validate([
             "image" => "nullable|image|max:255" // Ensure it's an image file and not exceeding size limit
         ]);
-    
+
         if ($request->hasFile('image')) {
             // Check if the user already has an image
             if ($admin->image) {
                 $existingImagePath = public_path($admin->image); // Get the full path of the existing image
-                
+
                 if (file_exists($existingImagePath)) {
                     unlink($existingImagePath); // Delete the existing image
                 }
             }
-    
+
             // Upload the new image
             $image = $request->file('image');
             $imageName = time() . '.' . $image->extension(); // Create a unique name for the new image
             $image->move(public_path('images'), $imageName); // Move the image to the public/images directory
             $admin->image = 'images/' . $imageName; // Update the user's image path
-        }else{
+        } else {
             return redirect('/admin/profile')->with('successProfilePhoto', 'Tidak ada perubahan');
         }
-    
+
         // Save the updated user profile
         $result = $admin->save();
-    
+
         // Check result and redirect accordingly
         if ($result) {
             return redirect('/admin/profile')->with('successProfilePhoto', 'Foto Profil berhasil dirubah');
@@ -141,13 +144,13 @@ class AdminController extends Controller
             return redirect('/admin/profile')->with('errorProfilePhoto', 'Gagal mengubah Foto Profil');
         }
     }
-    
+
     public function profile()
     {
         $admin = Auth::user();
         return view('admin.profile', [
             "title" => "Profile",
-            "admin"=>$admin
+            "admin" => $admin
         ]);
     }
 }

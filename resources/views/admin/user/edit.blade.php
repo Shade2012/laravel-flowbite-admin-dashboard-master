@@ -32,7 +32,9 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gambar</label>
                                 <div class="flex items-start space-x-4">
                                     <div class="mb-4">
-                                        <img id="image-preview{{ $user->id }}" class="w-32 h-32 rounded-full object-cover" src="{{ is_string($user->image) && !empty($user->image) ? url($user->image) : asset('images/poto_profil.jpg') }}" alt="User Image">
+                                        <img id="image-preview{{ $user->id }}"
+                                            src="{{ is_string($user->image) && !empty($user->image) ? url($user->image) : asset('storage/images/profile.jpg') }}"
+                                            alt="Gambar User" class="w-32 h-32 rounded-full object-cover">
                                     </div>
                                     <button type="button"
                                         onclick="document.getElementById('image{{ $user->id }}').click()"
@@ -50,7 +52,7 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="name"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                                <input type="text" name="name" value="{{ old('name', $user->name) }}"
+                                <input type="text" name="name" value="{{ old('name', $user->name ?? 'N/A') }}"
                                     id="name"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Your Name">
@@ -58,7 +60,7 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="email"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                <input type="email" name="email" value="{{ old('email', $user->email) }}"
+                                <input type="email" name="email" value="{{ old('email', $user->email ?? 'N/A') }}"
                                     id="email"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="example@gmail.com">
@@ -66,11 +68,23 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="password"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                <div class="relative">
-                                    <input type="password" name="password" id="password" placeholder="••••••••"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        required>
-                                </div>
+                                    <div class="relative">
+                                        <input type="password"
+                                            name="password" id="password{{ $user->id }}"
+                                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="••••••••">
+                                        <button type="button" id="togglePassword{{ $user->id }}"
+                                            class="absolute inset-y-0 right-0 flex items-center pr-3 focus:outline-none">
+                                            <svg id="iconPassword{{ $user->id }}" class="w-6 h-6 text-gray-800 dark:text-white"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-width="2"
+                                                    d="M3 12c0 1.2 4.03 6 9 6s9-4.8 9-6c0-1.2-4.03-6-9-6s-9 4.8-9 6Z" />
+                                                <path stroke="currentColor" stroke-width="2"
+                                                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                <path stroke="currentColor" stroke-width="2" d="M1 1l22 22" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Jika Anda ingin mempertahankan
                                     kata sandi saat ini, silakan biarkan kolom ini kosong.</p>
                             </div>
@@ -114,4 +128,26 @@
             reader.readAsDataURL(file);
         }
     }
+
+    @foreach ($users as $user)
+        const togglePassword{{ $user->id }} = document.getElementById('togglePassword{{ $user->id }}');
+        const passwordInput{{ $user->id }} = document.getElementById('password{{ $user->id }}');
+        const iconPassword{{ $user->id }} = document.getElementById('iconPassword{{ $user->id }}');
+
+        togglePassword{{ $user->id }}.addEventListener('click', () => {
+            // Toggle the type attribute
+            const type = passwordInput{{ $user->id }}.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput{{ $user->id }}.setAttribute('type', type);
+
+            // Toggle the eye icon
+            iconPassword{{ $user->id }}.innerHTML = type === 'password' ? `
+                <path stroke="currentColor" stroke-width="2" d="M3 12c0 1.2 4.03 6 9 6s9-4.8 9-6c0-1.2-4.03-6-9-6s-9 4.8-9 6Z"/>
+                <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                <path stroke="currentColor" stroke-width="2" d="M1 1l22 22" />
+            ` : `
+                <path stroke="currentColor" stroke-width="2" d="M3 12c0 1.2 4.03 6 9 6s9-4.8 9-6c0-1.2-4.03-6-9-6s-9 4.8-9 6Z"/>
+                <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+            `;
+        });
+    @endforeach
 </script>

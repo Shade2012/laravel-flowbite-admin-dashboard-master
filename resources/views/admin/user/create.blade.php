@@ -30,13 +30,13 @@
                             <div class="flex items-start space-x-4">
                                 <div class="mb-4">
                                     <img id="image-preview" src="{{ asset('storage/images/profile.jpg') }}"
-                                        alt="User Image" class="w-32 h-32 rounded-full object-cover">
+                                        alt="Gambar User" class="w-32 h-32 rounded-full object-cover">
                                 </div>
                                 <button type="button" onclick="document.getElementById('image').click()"
                                     class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Unggah
                                     Gambar</button>
                                 <input type="file" id="image" name="image" class="hidden"
-                                    onchange="previewImage()" required>
+                                accept="image/*" onchange="previewImage2()" required>
                             </div>
                             <div>
                                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Unggah gambar profil (JPG,
@@ -102,7 +102,7 @@
 </div>
 
 <script>
-    function previewImage() {
+    function previewImage2() {
         const file = document.getElementById('image').files[0];
         const reader = new FileReader();
 
