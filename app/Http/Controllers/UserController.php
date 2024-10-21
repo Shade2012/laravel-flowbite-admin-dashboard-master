@@ -108,15 +108,15 @@ class UserController extends Controller
                     if ($user->image) {
                         $existingImagePath = public_path($user->image);
                         if (file_exists($existingImagePath)) {
-                            return unlink($existingImagePath);
+                             unlink($existingImagePath);
                         }
-
-                        // Upload the new image
-                        $image = $request->file('image');
-                        $imageName = time() . '.' . $image->extension();
-                        $image->move(public_path('images'), $imageName);
-                        $user->image = 'images/' . $imageName;
+                        
                     }
+                    // Upload the new image
+                    $image = $request->file('image');
+                    $imageName = time() . '.' . $image->extension();
+                    $image->move(public_path('images'), $imageName);
+                    $user->image = 'images/' . $imageName;
                 } 
                 if ($request->filled('password')) {
                     $user->password = Hash::make($request->password);
