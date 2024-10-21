@@ -138,6 +138,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::put('update/{id}', [JadwalPelajaranController::class, 'update'])->name('admin.jadwal_pelajaran.update');
         Route::get('delete/{id}', [JadwalPelajaranController::class, 'delete'])->name('admin.jadwal_pelajaran.delete');
         Route::delete('destroy/{id}', [JadwalPelajaranController::class, 'destroy'])->name('admin.jadwal_pelajaran.destroy');
+        Route::get('admin/jadwal_pelajaran/export/{type}', [JadwalPelajaranController::class, 'export'])->name('admin.jadwal_pelajaran.export');
+
     });
 });
 

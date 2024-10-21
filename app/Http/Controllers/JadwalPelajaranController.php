@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\JadwalPelajaranExport;
 use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Ruang;
 use App\Models\Pelajaran;
+use App\Services\Pdf\PdfServiceImplement;
 use Illuminate\Http\Request;
 use App\Models\JadwalPelajaran;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class JadwalPelajaranController extends Controller
 {
@@ -202,4 +206,18 @@ class JadwalPelajaranController extends Controller
             return redirect()->back()->with('Gagal', 'Jadwal Pelajaran gagal dihapus, silakan coba lagi.');
         }
     }
+    public function export($type)
+    {
+        if ($type === 'excel') {
+            return Excel::download(new JadwalPelajaranExport, 'jadwal_pelajaran.xlsx');
+        }
+
+        if ($type === 'pdf') {
+            $pdfService = new PdfServiceImplement;
+            return $pdfService->generatePDF();
+        }
+
+        return redirect()->back()->with('error', 'Invalid export type');
+    }
+
 }
