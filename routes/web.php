@@ -139,6 +139,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('delete/{id}', [JadwalPelajaranController::class, 'delete'])->name('admin.jadwal_pelajaran.delete');
         Route::delete('destroy/{id}', [JadwalPelajaranController::class, 'destroy'])->name('admin.jadwal_pelajaran.destroy');
         Route::get('admin/jadwal_pelajaran/export/{type}', [JadwalPelajaranController::class, 'export'])->name('admin.jadwal_pelajaran.export');
+        Route::post('admin/jadwal_pelajaran/import/{type}', [JadwalPelajaranController::class, 'import'])->name('admin.jadwal_pelajaran.import');
+        Route::delete('/jadwal_pelajaran/delete_all', [JadwalPelajaranController::class, 'destroyAll'])->name('admin.jadwal_pelajaran.deleteAll');
 
     });
 });

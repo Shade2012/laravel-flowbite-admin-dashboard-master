@@ -62,16 +62,33 @@
                 </div>
                 <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
                     <button type="button" data-modal-target="add-jadwal_pelajaran-modal"
-                        data-modal-toggle="add-jadwal_pelajaran-modal"
-                        class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            data-modal-toggle="add-jadwal_pelajaran-modal"
+                            class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
+                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
-                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                clip-rule="evenodd"></path>
+                                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                  clip-rule="evenodd"></path>
                         </svg>
                         Tambah Jadwal Pelajaran
                     </button>
+
+                    <!-- Delete All Button -->
+                    <form action="{{ route('admin.jadwal_pelajaran.deleteAll') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete all Jadwal Pelajaran?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                                class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 sm:w-auto dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-700">
+                            <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M10 3a1 1 0 00-1 1v1H4a1 1 0 00-1 1v1a1 1 0 001 1h1v8a1 1 0 001 1h8a1 1 0 001-1v-8h1a1 1 0 001-1V6a1 1 0 00-1-1h-5V4a1 1 0 00-1-1zm0 12a3 3 0 11-.001-6.001A3 3 0 0110 15z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
+                            Delete All
+                        </button>
+                    </form>
+
                     <a href="#"
                        data-modal-target="export-jadwal_pelajaran-modal"
                        data-modal-toggle="export-jadwal_pelajaran-modal"
@@ -86,16 +103,19 @@
                     </a>
 
                     <a href="#"
-                        class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+                       data-modal-target="import-jadwal_pelajaran-modal"
+                       data-modal-toggle="import-jadwal_pelajaran-modal"
+                       class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
                         <svg class="w-5 h-5 mr-2 -ml-1" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                            viewBox="0 0 24 24">
+                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                             viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 12V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-4m5-13v4a1 1 0 0 1-1 1H5m0 6h9m0 0-2-2m2 2-2 2" />
+                                  d="M5 12V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-4m5-13v4a1 1 0 0 1-1 1H5m0 6h9m0 0-2-2m2 2-2 2" />
                         </svg>
                         Import
                     </a>
                 </div>
+
             </div>
         </div>
     </div>

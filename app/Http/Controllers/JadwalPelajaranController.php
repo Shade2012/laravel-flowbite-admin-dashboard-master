@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\JadwalPelajaranExport;
+use App\Imports\JadwalPelajaranImport;
 use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Ruang;
@@ -218,6 +219,33 @@ class JadwalPelajaranController extends Controller
         }
 
         return redirect()->back()->with('error', 'Invalid export type');
+    }
+
+    public function import(Request $request, $type)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xls,xlsx,csv|max:2048',
+        ]);
+
+        try {
+            Excel::import(new JadwalPelajaranImport, $request->file('file'));
+
+            session()->flash('Berhasil', 'Jadwal Pelajaran berhasil diimport');
+
+            return redirect()->route('admin.jadwal_pelajaran.index');
+        } catch (\Exception $e) {
+            session()->flash('Gagal', 'Data yang ada di tabel tidak boleh sama: ' . $e->getMessage());
+
+            return redirect()->back();
+        }
+    }
+
+    public function destroyAll()
+    {
+        // Menghapus seluruh data di tabel JadwalPelajaran
+        JadwalPelajaran::truncate();
+
+        return redirect()->route('admin.jadwal_pelajaran.index')->with('Berhasil', 'Seluruh Jadwal Pelajaran berhasil dihapus.');
     }
 
 }
