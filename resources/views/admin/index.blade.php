@@ -17,11 +17,11 @@
                 <div class="items-center sm:flex">
                     <div class="flex items-center">
                         <button id="dropdownDefault" data-dropdown-toggle="dropdown"
-                            class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                            type="button">
+                                class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                                type="button">
                             Filter Kelas
                             <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                                 </path>
                             </svg>
@@ -35,23 +35,23 @@
                                 @foreach ($classes as $class)
                                     <li class="flex items-center">
                                         <input id="class-{{ $class->id }}" type="radio" name="id"
-                                            value="{{ $class->id }}"
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                               value="{{ $class->id }}"
+                                               class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                             {{ request('id') == $class->id ? 'checked' : '' }} />
                                         <label for="class-{{ $class->id }}"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                               class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                                             {{ $class->nama_kelas }}
                                         </label>
                                     </li>
                                 @endforeach
 
                                 <button type="submit"
-                                    class="w-fit py-2.5 px-4 text-sm font-medium text-center mt-5 text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                                        class="w-fit py-2.5 px-4 text-sm font-medium text-center mt-5 text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                                     Pilih Kelas
                                 </button>
                             </form>
 
-                            {{--            
+                            {{--
               <li class="flex items-center">
                 <input id="fitbit" type="checkbox" value="" checked class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
 
@@ -108,67 +108,65 @@
                         <div class="overflow-hidden shadow sm:rounded-lg">
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                                 <thead class="bg-gray-50 dark:bg-gray-700">
-                                    <tr>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                            No
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                            Nama Pelajaran
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                            Ruangan
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                            Guru Yang Mengajar
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                            Jam Mulai
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                            Jam Selesai
-                                        </th>
-                                    </tr>
+                                <tr>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        No
+                                    </th>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        Nama Pelajaran
+                                    </th>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        Ruangan
+                                    </th>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        Guru Yang Mengajar
+                                    </th>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        Jam Mulai
+                                    </th>
+                                    <th scope="col"
+                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                        Jam Selesai
+                                    </th>
+                                </tr>
                                 </thead>
                                 <tbody class="bg-white dark:bg-gray-800">
-                                    @foreach ($jadwalNow as $jadwal)
-                                        <tr class="bg-gray-50 dark:bg-gray-700">
-                                            <td
-                                                class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                                <span class="font-semibold">{{ $id++ }}</span>
-                                            </td>
-                                            <td
-                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $jadwal->pelajaran->nama_pelajaran }}
-                                            </td>
-                                            <td
-                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $jadwal->ruang->nama_ruang }}
-                                            </td>
-                                            <td
-                                                class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                {{ $jadwal->guru->user->name }}
-                                            </td>
-                                            <td
-                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ substr($jadwal->jam_mulai, 0, 5) }}
-                                            </td>
-                                            <td
-                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ substr($jadwal->jam_selesai, 0, 5) }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-
+                                @foreach ($jadwalNow as $jadwal)
+                                    <tr class="bg-gray-50 dark:bg-gray-700">
+                                        <td
+                                            class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
+                                            <span class="font-semibold">{{ $id++ }}</span>
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ $jadwal->pelajaran->nama_pelajaran }}
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ $jadwal->ruang->nama_ruang }}
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                            {{ $jadwal->guru->user->name }}
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ substr($jadwal->jam_mulai, 0, 5) }}
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ substr($jadwal->jam_selesai, 0, 5) }}
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
+                            </table>
                         </div>
-                        </table>
-
                     </div>
                 </div>
             </div>
@@ -232,14 +230,14 @@
                         id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent2" role="tablist">
                         <li class="w-full">
                             <button id="faq-tab2" data-tabs-target="#faq2" type="button" role="tab"
-                                aria-controls="faq" aria-selected="true"
-                                class="inline-block w-full p-4 rounded-tl-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Pelajaran
+                                    aria-controls="faq" aria-selected="true"
+                                    class="inline-block w-full p-4 rounded-tl-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Pelajaran
                                 Hari Ini</button>
                         </li>
                         <li class="w-full">
                             <button id="about-tab2" data-tabs-target="#about2" type="button" role="tab"
-                                aria-controls="about" aria-selected="false"
-                                class="inline-block w-full p-4 rounded-tr-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Guru
+                                    aria-controls="about" aria-selected="false"
+                                    class="inline-block w-full p-4 rounded-tr-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Guru
                                 Yang Mengajar Hari Ini</button>
                         </li>
                     </ul>
@@ -247,7 +245,7 @@
                 <!-- Card Footer -->
                 <div class="fullWidthTabContent2 flex items-center justify-between pt-4 lg:justify-evenly sm:pt-6">
                     <div class="flex items-center justify-between lg:justify-evenly" id="faq2" role="tabpanel"
-                        aria-labelledby="faq-tab2">
+                         aria-labelledby="faq-tab2">
                         <div class="w-full">
                             <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Total Pelajaran yang
                                 dipelajari</h3>
@@ -257,7 +255,7 @@
                         <div class="w-full" id="pelajaran-chart"></div>
                     </div>
                     <div class="flex items-center justify-between lg:justify-evenly pt-4  sm:pt-6" id="about2"
-                        role="tabpanel" aria-labelledby="about-tab2">
+                         role="tabpanel" aria-labelledby="about-tab2">
                         <div class="w-full">
                             <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Total Guru yang mengajari
                             </h3>
@@ -277,7 +275,7 @@
                 <div class="sm:hidden">
                     <label for="tabs" class="sr-only">Select tab</label>
                     <select id="tabs"
-                        class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         <option>Statistics</option>
                         <option>Services</option>
                         <option>FAQ</option>
@@ -287,14 +285,14 @@
                     id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
                     <li class="w-full">
                         <button id="faq-tab" data-tabs-target="#faq" type="button" role="tab"
-                            aria-controls="faq" aria-selected="true"
-                            class="inline-block w-full p-4 rounded-tl-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Pelajaran
+                                aria-controls="faq" aria-selected="true"
+                                class="inline-block w-full p-4 rounded-tl-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Pelajaran
                             Hari Ini</button>
                     </li>
                     <li class="w-full">
                         <button id="about-tab" data-tabs-target="#about" type="button" role="tab"
-                            aria-controls="about" aria-selected="false"
-                            class="inline-block w-full p-4 rounded-tr-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Guru
+                                aria-controls="about" aria-selected="false"
+                                class="inline-block w-full p-4 rounded-tr-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Guru
                             Yang Mengajar Hari Ini</button>
                     </li>
                 </ul>
@@ -332,7 +330,7 @@
                                                         @foreach ($uniqueKelas as $kelasNama)
                                                             {{ $kelasNama }}{{ !$loop->last ? ', ' : '' }}
                                                         @endforeach
-                                                        )
+
                                                     </span>
                                                 </div>
                                             </div>
@@ -343,7 +341,7 @@
                                         </div>
                                     </div>
                                 </li>
-                            @endforeach
+                        @endforeach
                     </div>
                     <div class="hidden pt-4" id="about" role="tabpanel" aria-labelledby="about-tab">
                         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -377,7 +375,7 @@
                                                         @foreach ($uniqueKelas as $kelasNama)
                                                             {{ $kelasNama }}{{ !$loop->last ? ', ' : '' }}
                                                         @endforeach
-                                                        )
+
                                                     </span>
                                                 </div>
                                             </div>
@@ -458,7 +456,7 @@
         <div id="traffic-channels-chart" class="w-full"></div>
       </div>
     </div> --}}
-        {{-- <div class="grid grid-cols-1 my-4 xl:grid-cols-2 xl:gap-4"> 
+        {{-- <div class="grid grid-cols-1 my-4 xl:grid-cols-2 xl:gap-4">
       <!-- 201 - 524 -->
       <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-800 xl:mb-0">
         <div class="flex items-center justify-between mb-4">
@@ -869,7 +867,7 @@
           </div>
         </div>
         <!-- 285 355 -->
-      </div> 
+      </div>
     </div> --}}
         <!-- 2 columns -->
         <div class="grid grid-cols-1 my-4 xl:grid-cols-2 xl:gap-4">
@@ -1071,9 +1069,9 @@
                     ];
                 })->toArray(),
         ),
-    ) !!}
+    ) !!};
 
-    var guruData = {!! json_encode(
+        var guruData = {!! json_encode(
         array_values(
             $jadwalHariIni->pluck('guru.user.name')->unique()->map(function ($guru) use ($jadwalHariIni) {
                     return [
@@ -1082,9 +1080,9 @@
                     ];
                 })->toArray(),
         ),
-    ) !!}
+    ) !!};
 
-    const jadwalPelajaranDataCount = pelajaranData.map(function(item) {
+        const jadwalPelajaranDataCount = pelajaranData.map(function(item) {
         return {
             pelajaran: item.pelajaran,
             countPelajaran: item.countPelajaran,

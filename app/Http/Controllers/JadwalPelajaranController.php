@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\JadwalPelajaranExport;
+use App\Imports\JadwalPelajaranImport;
 use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\Ruang;
 use App\Models\Pelajaran;
+use App\Services\Pdf\PdfServiceImplement;
 use Illuminate\Http\Request;
 use App\Models\JadwalPelajaran;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class JadwalPelajaranController extends Controller
 {
@@ -202,4 +207,46 @@ class JadwalPelajaranController extends Controller
             return redirect()->back()->with('Gagal', 'Jadwal Pelajaran gagal dihapus, silakan coba lagi.');
         }
     }
+    public function export($type)
+    {
+        if ($type === 'excel') {
+            return Excel::download(new JadwalPelajaranExport, 'jadwal_pelajaran.xlsx');
+        }
+
+        if ($type === 'pdf') {
+            $pdfService = new PdfServiceImplement;
+            return $pdfService->generatePDF();
+        }
+
+        return redirect()->back()->with('error', 'Invalid export type');
+    }
+
+    public function import(Request $request)
+    {
+        // Reset session for any previous imports
+        session()->forget('Gagal');
+
+        // Import data
+        $import = new JadwalPelajaranImport();
+        Excel::import($import, $request->file('file'));
+
+        // Check for duplicates
+        $duplicates = $import->getDuplicates();
+        if (!empty($duplicates)) {
+            return redirect()->route('admin.jadwal_pelajaran.index')
+                ->with('Gagal', 'Gagal mengimpor data, data tidak boleh sama.');
+        }
+
+        return redirect()->route('admin.jadwal_pelajaran.index')
+            ->with('Berhasil', 'Data berhasil diimpor.');
+    }
+
+    public function destroyAll()
+    {
+        // Menghapus seluruh data di tabel JadwalPelajaran
+        JadwalPelajaran::truncate();
+
+        return redirect()->route('admin.jadwal_pelajaran.index')->with('Berhasil', 'Seluruh Jadwal Pelajaran berhasil dihapus.');
+    }
+
 }
