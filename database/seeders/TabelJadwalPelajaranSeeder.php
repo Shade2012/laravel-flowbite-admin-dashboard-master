@@ -14,7 +14,7 @@ class TabelJadwalPelajaranSeeder extends Seeder
     {
         JadwalPelajaran::create([
             'kelas_id' => 1,
-            'hari' => 'Senin',
+            'hari' => 'Selasa',
             'jam_mulai' => '08:00',
             'jam_selesai' => '09:30',
             'pelajaran_id' => 2,
@@ -44,7 +44,7 @@ class TabelJadwalPelajaranSeeder extends Seeder
 
         JadwalPelajaran::create([
             'kelas_id' => 4,
-            'hari' => 'Senin',
+            'hari' => 'Selasa',
             'jam_mulai' => '09:40',
             'jam_selesai' => '11:00',
             'pelajaran_id' => 8,
