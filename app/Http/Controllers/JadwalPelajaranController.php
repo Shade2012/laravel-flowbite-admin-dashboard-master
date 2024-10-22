@@ -221,23 +221,24 @@ class JadwalPelajaranController extends Controller
         return redirect()->back()->with('error', 'Invalid export type');
     }
 
-    public function import(Request $request, $type)
+    public function import(Request $request)
     {
-        $request->validate([
-            'file' => 'required|mimes:xls,xlsx,csv|max:2048',
-        ]);
+        // Reset session for any previous imports
+        session()->forget('Gagal');
 
-        try {
-            Excel::import(new JadwalPelajaranImport, $request->file('file'));
+        // Import data
+        $import = new JadwalPelajaranImport();
+        Excel::import($import, $request->file('file'));
 
-            session()->flash('Berhasil', 'Jadwal Pelajaran berhasil diimport');
-
-            return redirect()->route('admin.jadwal_pelajaran.index');
-        } catch (\Exception $e) {
-            session()->flash('Gagal', 'Data yang ada di tabel tidak boleh sama: ' . $e->getMessage());
-
-            return redirect()->back();
+        // Check for duplicates
+        $duplicates = $import->getDuplicates();
+        if (!empty($duplicates)) {
+            return redirect()->route('admin.jadwal_pelajaran.index')
+                ->with('Gagal', 'Gagal mengimpor data, data tidak boleh sama.');
         }
+
+        return redirect()->route('admin.jadwal_pelajaran.index')
+            ->with('Berhasil', 'Data berhasil diimpor.');
     }
 
     public function destroyAll()
